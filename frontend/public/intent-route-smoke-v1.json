@@ -1,0 +1,30 @@
+{
+  "suite": "huawei-mall-intent-route-smoke-v1",
+  "purpose": "Pre-freeze routing smoke test. Questions are not copied from Golden V0 and answer quality is out of scope.",
+  "cases": [
+    {"id":"IR-01","expectedIntent":"PRODUCT_INFO","resource":"KB:product-kb","question":"这款平板的主要能力和适合人群是什么？"},
+    {"id":"IR-02","expectedIntent":"PRODUCT_COMPARE","resource":"KB:product-kb","question":"帮我说明两个手机系列定位上有哪些差异。"},
+    {"id":"IR-03","expectedIntent":"PRODUCT_RECOMMEND_KB","resource":"KB:product-kb","question":"做日常办公时应该关注笔记本的哪些能力？"},
+    {"id":"IR-04","expectedIntent":"PRODUCT_RECOMMEND_TOOL","resource":"MCP:searchProducts","question":"请筛选适合学习并且便携的笔记本候选。"},
+    {"id":"IR-05","expectedIntent":"PRODUCT_COMPATIBILITY","resource":"KB:product-kb","question":"这款平板能和指定键盘配套使用吗？"},
+    {"id":"IR-06","expectedIntent":"PRODUCT_AVAILABILITY","resource":"MCP:getProductAvailability","question":"查询指定商品在上海地区是否有库存。"},
+    {"id":"IR-07","expectedIntent":"COUPON_POLICY","resource":"KB:shopping-policy-kb","question":"商城券有没有最低消费和适用范围限制？"},
+    {"id":"IR-08","expectedIntent":"COUPON_ELIGIBILITY","resource":"MCP:getCouponEligibility","question":"请判断指定优惠券是否适用于这笔订单。"},
+    {"id":"IR-09","expectedIntent":"INVOICE_POLICY","resource":"KB:shopping-policy-kb","question":"购买自营商品后怎样开具并获取发票？"},
+    {"id":"IR-10","expectedIntent":"DELIVERY_POLICY","resource":"KB:shopping-policy-kb","question":"商城自营订单一般采用哪些配送方式，物流查询入口有什么规则？"},
+    {"id":"IR-11","expectedIntent":"RETURN_POLICY","resource":"KB:shopping-policy-kb","question":"申请退货通常需要满足哪些规则？"},
+    {"id":"IR-12","expectedIntent":"ORDER_QUERY","resource":"MCP:getOrder","question":"列出我购买过的手机订单。"},
+    {"id":"IR-13","expectedIntent":"LOGISTICS_QUERY","resource":"MCP:getLogistics","question":"我有一笔已发货订单，请按订单号查询包裹现在到哪个配送节点了。"},
+    {"id":"IR-14","expectedIntent":"ORDER_CHANGE","resource":"SYSTEM","question":"我想更改已提交订单的收货地址。"},
+    {"id":"IR-15","expectedIntent":"WARRANTY_POLICY","resource":"KB:after-sales-kb","question":"设备的一般保修期限如何计算？"},
+    {"id":"IR-16","expectedIntent":"WARRANTY_STATUS","resource":"MCP:getWarrantyStatus","question":"请根据序列号检查一台设备当前是否在保。"},
+    {"id":"IR-17","expectedIntent":"SPARE_PART_PRICE","resource":"MCP:getSparePartPrice","question":"某型号更换电池的备件和人工费是多少？"},
+    {"id":"IR-18","expectedIntent":"REPAIR_SERVICE","resource":"KB:after-sales-kb","question":"设备送修前需要准备什么材料？"},
+    {"id":"IR-19","expectedIntent":"REPAIR_PROGRESS","resource":"MCP:getRepairProgress","question":"我想按服务单查看当前维修环节。"},
+    {"id":"IR-20","expectedIntent":"SERVICE_CENTER","resource":"KB:after-sales-kb","question":"在哪里可以查询附近的授权检测网点？"},
+    {"id":"IR-21","expectedIntent":"USAGE_GUIDE","resource":"KB:support-kb","question":"新买的手表怎样绑定配套应用？"},
+    {"id":"IR-22","expectedIntent":"TROUBLESHOOTING","resource":"KB:support-kb","question":"蓝牙耳机左右声道有一侧静音，应按什么步骤排查？"},
+    {"id":"IR-23","expectedIntent":"CONNECTION_NETWORK","resource":"KB:support-kb","question":"笔记本连上 Wi-Fi 却无法访问网络怎么排查？"},
+    {"id":"IR-24","expectedIntent":"CHARGING_BATTERY","resource":"KB:support-kb","question":"手机耗电明显变快时应该检查什么？"}
+  ]
+}

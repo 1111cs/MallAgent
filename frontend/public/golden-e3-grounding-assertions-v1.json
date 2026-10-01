@@ -1,0 +1,4 @@
+{"suite":"huawei-mall-e3-grounding-assertions-v1","cases":[
+{"caseId":"E3-KB-01","expected":{"requireGroundingEvaluationComplete":true,"maxUnsupportedClaimCount":0,"maxContradictedClaimCount":0,"maxAuthorityViolationCount":0,"maxUnassociatedCitationCount":0,"minCitationCoverage":1.0,"minCitationSupportRate":1.0,"minGroundedClaimRate":1.0,"failureStage":"GROUNDING"}},
+{"caseId":"E3-MIXED-01","expected":{"requireGroundingEvaluationComplete":true,"maxUnsupportedClaimCount":0,"maxContradictedClaimCount":0,"maxAuthorityViolationCount":0,"maxUnassociatedCitationCount":0,"minCitationCoverage":1.0,"minCitationSupportRate":1.0,"minGroundedClaimRate":1.0,"failureStage":"GROUNDING"}},
+{"caseId":"E3-TOOL-01","expected":{"requireGroundingEvaluationComplete":true,"maxUnsupportedClaimCount":0,"maxContradictedClaimCount":0,"maxAuthorityViolationCount":0,"minGroundedClaimRate":1.0,"failureStage":"GROUNDING"}}]}

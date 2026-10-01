@@ -1,0 +1,35 @@
+{
+  "status": "SUGGESTED_NOT_FROZEN",
+  "cases": [
+    {
+      "case_id": "KB-01",
+      "query": "Mate 80 Pro 和 Pura 80 Pro 屏幕哪个更大？",
+      "expected_kb": "product-kb",
+      "expected_topic": "Mate 80 Pro 与 Pura 80 Pro 对比"
+    },
+    {
+      "case_id": "KB-02",
+      "query": "拆封之后还能七天无理由退货吗？",
+      "expected_kb": "shopping-policy-kb",
+      "expected_topic": "七天无理由退货基本规则 / 常见不适用情形"
+    },
+    {
+      "case_id": "KB-03",
+      "query": "手机屏幕自己摔坏了通常算保修吗？",
+      "expected_kb": "after-sales-kb",
+      "expected_topic": "屏幕损坏与保修"
+    },
+    {
+      "case_id": "KB-04",
+      "query": "FreeBuds 有电，但是手机蓝牙列表就是搜不到",
+      "expected_kb": "support-kb",
+      "expected_topic": "蓝牙列表搜索不到耳机"
+    },
+    {
+      "case_id": "KB-05",
+      "query": "手机 Wi-Fi 显示已经连接，但浏览器打不开网页",
+      "expected_kb": "support-kb",
+      "expected_topic": "已连接 Wi-Fi 但无法上网"
+    }
+  ]
+}

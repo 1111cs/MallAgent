@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Huawei Mall Intent Route Smoke V1</title>
+    <style>
+      body { margin: 0; font-family: system-ui, sans-serif; background: #f8fafc; color: #172033; }
+      main { max-width: 1100px; margin: 32px auto; padding: 0 20px; }
+      .card { background: white; border: 1px solid #dbe4f0; border-radius: 16px; padding: 20px; box-shadow: 0 8px 24px #0f172a0d; }
+      button { border: 0; border-radius: 10px; padding: 10px 18px; background: #2563eb; color: white; font-weight: 650; cursor: pointer; }
+      button:disabled { opacity: .55; cursor: wait; }
+      #stop { background: #64748b; margin-left: 8px; }
+      table { width: 100%; border-collapse: collapse; margin-top: 18px; font-size: 13px; }
+      th, td { border-bottom: 1px solid #e5e7eb; padding: 9px; text-align: left; vertical-align: top; }
+      .pass { color: #047857; font-weight: 700; } .fail { color: #b91c1c; font-weight: 700; }
+      #status { margin-left: 12px; color: #475569; }
+    </style>
+  </head>
+  <body>
+    <main>
+      <div class="card">
+        <h1>Huawei Mall Intent Route Smoke V1</h1>
+        <p>只检查非 Golden 问法是否进入预期 Intent；不评价 Tool 参数、Evidence 或最终答案。</p>
+        <button id="run">运行 24 条路由测试</button><button id="stop" disabled>停止</button><span id="status">等待运行</span>
+        <table><thead><tr><th>ID</th><th>问题</th><th>期望 Intent / 资源</th><th>实际 Intent / 资源</th><th>结果</th><th>耗时</th></tr></thead><tbody id="rows"></tbody></table>
+      </div>
+    </main>
+    <script>
+      const runButton = document.querySelector('#run');
+      const stopButton = document.querySelector('#stop');
+      const status = document.querySelector('#status');
+      const rows = document.querySelector('#rows');
+      let activeController = null;
+      let stopped = false;
+      const escapeHtml = (value) => String(value ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+      const routeResource = (route) => {
+        if (!route) return '';
+        if (route.kind === 'KB') return `KB:${route.collectionName || route.kbId || ''}`;
+        if (route.kind === 'MCP') return `MCP:${route.mcpToolId || ''}`;
+        return route.kind || '';
+      };
+      stopButton.addEventListener('click', () => { stopped = true; activeController?.abort(); status.textContent = '正在停止…'; });
+      addEventListener('beforeunload', () => activeController?.abort());
+      runButton.addEventListener('click', async () => {
+        const token = localStorage.getItem('ragent_token');
+        if (!token) { status.textContent = '未找到登录 token，请先在主页面登录'; return; }
+        stopped = false; runButton.disabled = true; stopButton.disabled = false; rows.innerHTML = '';
+        const suite = await fetch('/intent-route-smoke-v1.json').then(r => r.json());
+        const results = [];
+        for (let i = 0; i < suite.cases.length; i++) {
+          if (stopped) break;
+          const test = suite.cases[i]; status.textContent = `运行 ${i + 1}/${suite.cases.length}: ${test.id}`;
+          const started = performance.now(); let actual = []; let actualResource = ''; let error = null; let payload = null;
+          activeController = new AbortController();
+          const timeout = setTimeout(() => activeController.abort('45 秒超时'), 45000);
+          const ticker = setInterval(() => { status.textContent = `运行 ${i + 1}/${suite.cases.length}: ${test.id}（${Math.floor((performance.now() - started) / 1000)} 秒）`; }, 1000);
+          try {
+            const response = await fetch(`/api/ragent/rag/eval/intent?question=${encodeURIComponent(test.question)}`, { headers: { Authorization: token }, signal: activeController.signal });
+            payload = await response.json();
+            if (!response.ok || !payload.success) throw new Error(payload.message || `HTTP ${response.status}`);
+            actual = (payload.data?.intentLeafIds || []).filter(Boolean);
+            actualResource = routeResource(payload.data?.routes?.[0]);
+          } catch (e) { error = e?.name === 'AbortError' ? (stopped ? '用户停止' : '45 秒超时') : (e instanceof Error ? e.message : String(e)); }
+          finally { clearTimeout(timeout); clearInterval(ticker); activeController = null; }
+          const durationMs = Math.round(performance.now() - started);
+          const pass = !error && actual.includes(test.expectedIntent) && actualResource === test.resource;
+          results.push({...test, actualIntents: actual, actualResource, pass, durationMs, error, response: payload?.data || null});
+          rows.insertAdjacentHTML('beforeend', `<tr><td>${test.id}</td><td>${escapeHtml(test.question)}</td><td>${escapeHtml(test.expectedIntent)}<br>${escapeHtml(test.resource)}</td><td>${escapeHtml(error || actual.join(', ') || 'null')}<br>${escapeHtml(actualResource)}</td><td class="${pass ? 'pass' : 'fail'}">${pass ? 'PASS' : 'FAIL'}</td><td>${durationMs} ms</td></tr>`);
+        }
+        const report = {suite:suite.suite, generatedAt:new Date().toISOString(), total:results.length, passed:results.filter(x=>x.pass).length, failed:results.filter(x=>!x.pass).length, results};
+        const blob = new Blob([JSON.stringify(report, null, 2)], {type:'application/json'});
+        const link = document.createElement('a'); link.href = URL.createObjectURL(blob); link.download = 'huawei-mall-intent-route-smoke-v1-result.json'; link.click(); URL.revokeObjectURL(link.href);
+        status.textContent = stopped ? `已停止：完成 ${report.total}/${suite.cases.length}` : `完成：${report.passed}/${report.total} PASS；结果已下载`;
+        runButton.disabled = false; stopButton.disabled = true;
+      });
+    </script>
+  </body>
+</html>

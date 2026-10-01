@@ -1,0 +1,15 @@
+MallAgent
+Copyright 2026 Chen Xiaodong
+
+This product includes software derived from the Ragent project by nageoffer:
+https://gitee.com/nageoffer/ragent
+
+Ragent is distributed under the Apache License, Version 2.0. Existing license
+headers and attribution are retained. MallAgent adds the synthetic commerce
+adapter, deterministic fixtures, closed-loop execution governance, evidence and
+citation validation, and Golden Case evaluation materials.
+
+MallAgent is an independent educational and portfolio project. It is not an
+official Huawei product, does not connect to Huawei production services, and
+contains no Huawei internal interfaces or business data.
+

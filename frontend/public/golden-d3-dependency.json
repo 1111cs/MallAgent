@@ -1,0 +1,155 @@
+{
+  "suite": "huawei-mall-d3-dependency",
+  "principalId": "U003",
+  "status": "D3_DEPENDENCY_EXECUTION_PASSED",
+  "cases": [
+    {
+      "id": "DEP-01",
+      "question": "帮我看看上个月买的手表还在不在保。",
+      "expected": {
+        "expectedTools": [
+          "getOrder",
+          "getWarrantyStatus"
+        ],
+        "expectedToolSequence": [
+          "getOrder",
+          "getWarrantyStatus"
+        ],
+        "expectedToolPlan": [
+          [
+            "getOrder"
+          ],
+          [
+            "getWarrantyStatus"
+          ]
+        ],
+        "expectedToolInvocationCount": {
+          "getOrder": 1,
+          "getWarrantyStatus": 1
+        },
+        "expectedToolBindings": [
+          {
+            "fromTool": "getOrder",
+            "fromField": "data.orders[*].products[*].sn",
+            "toTool": "getWarrantyStatus",
+            "toParameter": "sn",
+            "source": "TOOL_OUTPUT"
+          }
+        ],
+        "expectedParameterSource": {
+          "getWarrantyStatus": {
+            "sn": "TOOL_OUTPUT"
+          }
+        },
+        "expectedTaskStatus": "COMPLETED",
+        "failureStage": "DEPENDENCY_EXECUTION"
+      }
+    },
+    {
+      "id": "DEP-02",
+      "question": "我上个月买的笔记本换屏大概多少钱？",
+      "expected": {
+        "expectedTools": [
+          "getOrder",
+          "getSparePartPrice"
+        ],
+        "expectedToolSequence": [
+          "getOrder",
+          "getSparePartPrice"
+        ],
+        "expectedToolPlan": [
+          [
+            "getOrder"
+          ],
+          [
+            "getSparePartPrice"
+          ]
+        ],
+        "expectedToolInvocationCount": {
+          "getOrder": 1,
+          "getSparePartPrice": 1
+        },
+        "expectedToolBindings": [
+          {
+            "fromTool": "getOrder",
+            "fromField": "data.orders[*].products[*].productId",
+            "toTool": "getSparePartPrice",
+            "toParameter": "productId",
+            "source": "TOOL_OUTPUT"
+          }
+        ],
+        "expectedParameterSource": {
+          "getSparePartPrice": {
+            "productId": "TOOL_OUTPUT",
+            "part": "USER_QUERY"
+          }
+        },
+        "expectedTaskStatus": "COMPLETED",
+        "failureStage": "DEPENDENCY_EXECUTION"
+      }
+    },
+    {
+      "id": "DEP-03",
+      "question": "我上个月买的手表还在不在保？如果换屏的话大概多少钱？",
+      "expected": {
+        "expectedTools": [
+          "getOrder",
+          "getWarrantyStatus",
+          "getSparePartPrice"
+        ],
+        "expectedToolSequence": [
+          "getOrder",
+          "getWarrantyStatus",
+          "getSparePartPrice"
+        ],
+        "expectedToolPlan": [
+          [
+            "getOrder"
+          ],
+          [
+            "getWarrantyStatus",
+            "getSparePartPrice"
+          ]
+        ],
+        "expectedToolInvocationCount": {
+          "getOrder": 1,
+          "getWarrantyStatus": 1,
+          "getSparePartPrice": 1
+        },
+        "expectedToolBindings": [
+          {
+            "fromTool": "getOrder",
+            "fromField": "data.orders[*].products[*].sn",
+            "toTool": "getWarrantyStatus",
+            "toParameter": "sn",
+            "source": "TOOL_OUTPUT"
+          },
+          {
+            "fromTool": "getOrder",
+            "fromField": "data.orders[*].products[*].productId",
+            "toTool": "getSparePartPrice",
+            "toParameter": "productId",
+            "source": "TOOL_OUTPUT"
+          }
+        ],
+        "expectedParameterSource": {
+          "getWarrantyStatus": {
+            "sn": "TOOL_OUTPUT"
+          },
+          "getSparePartPrice": {
+            "productId": "TOOL_OUTPUT",
+            "part": "USER_QUERY"
+          }
+        },
+        "expectedTaskStatus": "COMPLETED",
+        "failureStage": "DEPENDENCY_EXECUTION"
+      }
+    }
+  ],
+  "acceptedAt": "2026-09-18",
+  "observed": {
+    "DEP-01": "PASS: getOrder purchase result supplied WATCH-SN-003 to getWarrantyStatus; IN_WARRANTY through 2027-08-11",
+    "DEP-02": "PASS: getOrder purchase result supplied P-LAPTOP-001 to getSparePartPrice; estimated total 3299.00 CNY",
+    "DEP-03": "PASS: one request completed warranty and screen-price downstream tasks; WATCH-SN-003 IN_WARRANTY and estimated total 599.00 CNY"
+  }
+}

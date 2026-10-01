@@ -1,0 +1,316 @@
+{
+  "suite": "huawei-mall-d1-missing-closed-loop",
+  "version": "d1-v2",
+  "principalId": "U001",
+  "rules": {
+    "sameConversationWithinCase": true,
+    "freshConversationPerCase": true,
+    "injectExpectedPendingTaskIdFromPriorStep": true,
+    "assertPendingAbsentAfterTerminalStep": true
+  },
+  "cases": [
+    {
+      "caseId": "MISS-01",
+      "principalId": "U001",
+      "steps": [
+        {
+          "stepId": "MISS-01-A",
+          "question": "帮我查维修进度。",
+          "expected": {
+            "expectedResolutionStatus": "MISSING",
+            "expectedTools": [],
+            "expectedToolSequence": [],
+            "expectedTaskStatus": "NEED_CLARIFICATION",
+            "expectedClarificationAction": "CREATED",
+            "expectedPendingTaskIdPresent": true,
+            "failureStage": "MISSING_PARAMETER_HANDLING",
+            "expectedIntent": [
+              "REPAIR_PROGRESS"
+            ],
+            "expectedResource": [
+              "MCP:getRepairProgress"
+            ],
+            "expectedMissingParameters": {
+              "getRepairProgress": [
+                "serviceNo",
+                "phone"
+              ]
+            },
+            "forbiddenTools": [
+              "getRepairProgress"
+            ]
+          }
+        },
+        {
+          "stepId": "MISS-01-B",
+          "question": "维修单号是 WX202609001。",
+          "expectedPendingTaskIdFrom": "MISS-01-A",
+          "expected": {
+            "expectedIntent": [
+              "REPAIR_PROGRESS"
+            ],
+            "expectedResource": [
+              "MCP:getRepairProgress"
+            ],
+            "expectedResolutionStatus": "RESOLVED",
+            "expectedTools": [
+              "getRepairProgress"
+            ],
+            "expectedToolSequence": [
+              "getRepairProgress"
+            ],
+            "expectedParameterSource": {
+              "getRepairProgress": {
+                "serviceNo": "CLARIFICATION_INPUT",
+                "principalId": "AUTH_CONTEXT"
+              }
+            },
+            "expectedTransportStatus": {
+              "getRepairProgress": "SUCCESS"
+            },
+            "expectedBusinessStatus": {
+              "getRepairProgress": "OK"
+            },
+            "expectedTaskStatus": "COMPLETED",
+            "expectedClarificationAction": "RESUMED_AND_CLEARED",
+            "expectedPendingTaskIdPresent": true,
+            "failureStage": "MISSING_PARAMETER_RESUME"
+          }
+        }
+      ]
+    },
+    {
+      "caseId": "MISS-02",
+      "principalId": "U001",
+      "steps": [
+        {
+          "stepId": "MISS-02-A",
+          "question": "帮我看看我的设备还在不在保。",
+          "expected": {
+            "expectedResolutionStatus": "MISSING",
+            "expectedTools": [],
+            "expectedToolSequence": [],
+            "expectedTaskStatus": "NEED_CLARIFICATION",
+            "expectedClarificationAction": "CREATED",
+            "expectedPendingTaskIdPresent": true,
+            "failureStage": "MISSING_PARAMETER_HANDLING",
+            "expectedIntent": [
+              "WARRANTY_STATUS"
+            ],
+            "expectedResource": [
+              "MCP:getWarrantyStatus"
+            ],
+            "expectedMissingParameters": {
+              "getWarrantyStatus": [
+                "sn"
+              ]
+            },
+            "forbiddenTools": [
+              "getWarrantyStatus"
+            ]
+          }
+        },
+        {
+          "stepId": "MISS-02-B",
+          "question": "SN 是 ABC001。",
+          "expectedPendingTaskIdFrom": "MISS-02-A",
+          "expected": {
+            "expectedIntent": [
+              "WARRANTY_STATUS"
+            ],
+            "expectedResource": [
+              "MCP:getWarrantyStatus"
+            ],
+            "expectedResolutionStatus": "RESOLVED",
+            "expectedTools": [
+              "getWarrantyStatus"
+            ],
+            "expectedToolSequence": [
+              "getWarrantyStatus"
+            ],
+            "expectedParameterSource": {
+              "getWarrantyStatus": {
+                "sn": "CLARIFICATION_INPUT",
+                "principalId": "AUTH_CONTEXT"
+              }
+            },
+            "expectedTransportStatus": {
+              "getWarrantyStatus": "SUCCESS"
+            },
+            "expectedBusinessStatus": {
+              "getWarrantyStatus": "OK"
+            },
+            "expectedTaskStatus": "COMPLETED",
+            "expectedClarificationAction": "RESUMED_AND_CLEARED",
+            "expectedPendingTaskIdPresent": true,
+            "failureStage": "MISSING_PARAMETER_RESUME"
+          }
+        }
+      ]
+    },
+    {
+      "caseId": "MISS-03",
+      "principalId": "U001",
+      "steps": [
+        {
+          "stepId": "MISS-03-A",
+          "question": "帮我看看这个优惠券为什么不能用。",
+          "expected": {
+            "expectedResolutionStatus": "MISSING",
+            "expectedTools": [],
+            "expectedToolSequence": [],
+            "expectedTaskStatus": "NEED_CLARIFICATION",
+            "expectedClarificationAction": "CREATED",
+            "expectedPendingTaskIdPresent": true,
+            "failureStage": "MISSING_PARAMETER_HANDLING",
+            "expectedIntent": [
+              "COUPON_ELIGIBILITY"
+            ],
+            "expectedResource": [
+              "MCP:getCouponEligibility"
+            ],
+            "expectedMissingParameters": {
+              "getCouponEligibility": [
+                "couponId",
+                "orderNo",
+                "productIds"
+              ]
+            },
+            "forbiddenTools": [
+              "getCouponEligibility"
+            ]
+          }
+        },
+        {
+          "stepId": "MISS-03-B",
+          "question": "优惠券是 C001。",
+          "expectedPendingTaskIdFrom": "MISS-03-A",
+          "expected": {
+            "expectedResolutionStatus": "MISSING",
+            "expectedMissingParameters": {
+              "getCouponEligibility": [
+                "orderNo",
+                "productIds"
+              ]
+            },
+            "expectedTools": [],
+            "forbiddenTools": [
+              "getCouponEligibility"
+            ],
+            "expectedToolSequence": [],
+            "expectedTaskStatus": "NEED_CLARIFICATION",
+            "expectedClarificationAction": "UPDATED",
+            "expectedPendingTaskIdPresent": true,
+            "failureStage": "MISSING_PARAMETER_HANDLING"
+          }
+        },
+        {
+          "stepId": "MISS-03-C",
+          "question": "用于订单 202609140001。",
+          "expectedPendingTaskIdFrom": "MISS-03-A",
+          "expected": {
+            "expectedIntent": [
+              "COUPON_ELIGIBILITY"
+            ],
+            "expectedResource": [
+              "MCP:getCouponEligibility"
+            ],
+            "expectedResolutionStatus": "RESOLVED",
+            "expectedTools": [
+              "getCouponEligibility"
+            ],
+            "expectedToolSequence": [
+              "getCouponEligibility"
+            ],
+            "expectedParameterSource": {
+              "getCouponEligibility": {
+                "couponId": "USER_QUERY",
+                "orderNo": "CLARIFICATION_INPUT",
+                "principalId": "AUTH_CONTEXT"
+              }
+            },
+            "expectedTransportStatus": {
+              "getCouponEligibility": "SUCCESS"
+            },
+            "expectedBusinessStatus": {
+              "getCouponEligibility": "OK"
+            },
+            "expectedTaskStatus": "COMPLETED",
+            "expectedClarificationAction": "RESUMED_AND_CLEARED",
+            "expectedPendingTaskIdPresent": true,
+            "failureStage": "MISSING_PARAMETER_RESUME"
+          }
+        }
+      ]
+    },
+    {
+      "caseId": "MISS-04",
+      "principalId": "U001",
+      "steps": [
+        {
+          "stepId": "MISS-04-A",
+          "question": "我想看看广州有没有货。",
+          "expected": {
+            "expectedResolutionStatus": "MISSING",
+            "expectedTools": [],
+            "expectedToolSequence": [],
+            "expectedTaskStatus": "NEED_CLARIFICATION",
+            "expectedClarificationAction": "CREATED",
+            "expectedPendingTaskIdPresent": true,
+            "failureStage": "MISSING_PARAMETER_HANDLING",
+            "expectedIntent": [
+              "PRODUCT_AVAILABILITY"
+            ],
+            "expectedResource": [
+              "MCP:getProductAvailability"
+            ],
+            "expectedMissingParameters": {
+              "getProductAvailability": [
+                "productId"
+              ]
+            },
+            "forbiddenTools": [
+              "getProductAvailability"
+            ]
+          }
+        },
+        {
+          "stepId": "MISS-04-B",
+          "question": "商品是 P-LAPTOP-001。",
+          "expectedPendingTaskIdFrom": "MISS-04-A",
+          "expected": {
+            "expectedIntent": [
+              "PRODUCT_AVAILABILITY"
+            ],
+            "expectedResource": [
+              "MCP:getProductAvailability"
+            ],
+            "expectedResolutionStatus": "RESOLVED",
+            "expectedTools": [
+              "getProductAvailability"
+            ],
+            "expectedToolSequence": [
+              "getProductAvailability"
+            ],
+            "expectedParameterSource": {
+              "getProductAvailability": {
+                "productId": "CLARIFICATION_INPUT",
+                "region": "USER_QUERY"
+              }
+            },
+            "expectedTransportStatus": {
+              "getProductAvailability": "SUCCESS"
+            },
+            "expectedBusinessStatus": {
+              "getProductAvailability": "OK"
+            },
+            "expectedTaskStatus": "COMPLETED",
+            "expectedClarificationAction": "RESUMED_AND_CLEARED",
+            "expectedPendingTaskIdPresent": true,
+            "failureStage": "MISSING_PARAMETER_RESUME"
+          }
+        }
+      ]
+    }
+  ]
+}

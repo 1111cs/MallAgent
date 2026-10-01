@@ -1,0 +1,188 @@
+{
+  "suite": "routing-robustness-suite-v1",
+  "version": "1.0",
+  "status": "G1_ROUTING_GOVERNANCE_PASSED",
+  "separateFromGoldenV0": true,
+  "executionPrerequisites": {
+    "freshConversationPerCase": true,
+    "principalMustMatchCase": true,
+    "note": "避免 D1/D2/D3 Pending 状态或前一用例的会话记忆改变 G1 路由结果。"
+  },
+  "cases": [
+    {
+      "id": "RG-01",
+      "category": "AUTH_CONTEXT",
+      "principalId": "U001",
+      "question": "我的用户编号是多少？",
+      "expected": {
+        "routingDecision": "AUTH_CONTEXT",
+        "fallbackReason": "SELF_IDENTITY_QUERY",
+        "answerContains": [
+          "U001"
+        ],
+        "forbiddenChannels": [
+          "VectorGlobalSearch",
+          "IntentDirectedSearch"
+        ],
+        "forbiddenTools": [
+          "*"
+        ]
+      }
+    },
+    {
+      "id": "RG-02",
+      "category": "SYSTEM_META",
+      "principalId": "U001",
+      "question": "你能帮我处理哪些商城问题？",
+      "expected": {
+        "routingDecision": "SYSTEM",
+        "fallbackReason": "SYSTEM_META_QUERY",
+        "forbiddenChannels": [
+          "VectorGlobalSearch",
+          "IntentDirectedSearch"
+        ],
+        "forbiddenTools": [
+          "*"
+        ]
+      }
+    },
+    {
+      "id": "RG-03",
+      "category": "OUT_OF_SCOPE",
+      "principalId": "U001",
+      "question": "帮我订一张明天北京飞上海的机票。",
+      "expected": {
+        "routingDecision": "OUT_OF_SCOPE",
+        "fallbackReason": "OUT_OF_BUSINESS_SCOPE",
+        "forbiddenChannels": [
+          "VectorGlobalSearch",
+          "IntentDirectedSearch"
+        ],
+        "forbiddenTools": [
+          "*"
+        ]
+      }
+    },
+    {
+      "id": "RG-04",
+      "category": "INCOMPLETE",
+      "principalId": "U001",
+      "question": "帮我查一下。",
+      "expected": {
+        "routingDecision": "NEED_CLARIFICATION",
+        "fallbackReason": "INCOMPLETE_BUSINESS_REQUEST",
+        "forbiddenChannels": [
+          "VectorGlobalSearch",
+          "IntentDirectedSearch"
+        ],
+        "forbiddenTools": [
+          "*"
+        ]
+      }
+    },
+    {
+      "id": "RG-05",
+      "category": "GLOBAL_PUBLIC_KNOWLEDGE",
+      "principalId": "U001",
+      "question": "我想了解商城里公开的购买、配送和售后通用规则。",
+      "expected": {
+        "routingDecision": "GLOBAL_KB_FALLBACK",
+        "fallbackReason": "PUBLIC_KNOWLEDGE_NO_TRUSTED_INTENT",
+        "allowedCollections": [
+          "product-kb",
+          "shopping-policy-kb",
+          "after-sales-kb",
+          "support-kb"
+        ],
+        "forbiddenTools": [
+          "*"
+        ]
+      }
+    },
+    {
+      "id": "RG-06",
+      "category": "STRUCTURAL_ROUTE",
+      "principalId": "U001",
+      "question": "MateBook X Pro 更适合写代码还是剪视频？",
+      "expected": {
+        "routingDecision": "ROUTED",
+        "intents": [
+          "PRODUCT_RECOMMEND_KB"
+        ],
+        "resources": [
+          "KB:product-kb"
+        ],
+        "forbiddenTools": [
+          "searchProducts"
+        ],
+        "fallbackReason": "NONE"
+      }
+    },
+    {
+      "id": "RG-07",
+      "category": "STRUCTURAL_ROUTE",
+      "principalId": "U001",
+      "question": "FreeBuds 连不上手机应该怎么排查？",
+      "expected": {
+        "routingDecision": "ROUTED",
+        "intents": [
+          "CONNECTION_NETWORK"
+        ],
+        "resources": [
+          "KB:support-kb"
+        ],
+        "forbiddenTools": [
+          "*"
+        ],
+        "fallbackReason": "NONE"
+      }
+    },
+    {
+      "id": "RG-08",
+      "category": "ADJACENT_TOOL_BOUNDARY",
+      "principalId": "U001",
+      "variants": [
+        {
+          "question": "帮我查订单 202609140001。",
+          "expectedIntent": "ORDER_QUERY",
+          "expectedResource": "MCP:getOrder",
+          "expectedTool": "getOrder",
+          "forbiddenTool": "getLogistics"
+        },
+        {
+          "question": "订单 202609140001 到哪了？",
+          "expectedIntent": "LOGISTICS_QUERY",
+          "expectedResource": "MCP:getLogistics",
+          "expectedTool": "getLogistics",
+          "forbiddenTool": "getOrder"
+        }
+      ],
+      "expected": {
+        "routingDecision": "ROUTED",
+        "fallbackReason": "NONE"
+      }
+    },
+    {
+      "id": "RG-09",
+      "category": "ROUTING_ERROR",
+      "testLayer": "POLICY_UNIT",
+      "input": {
+        "intentClassificationStatus": [
+          "MODEL_ERROR",
+          "PARSE_ERROR"
+        ]
+      },
+      "expected": {
+        "routingDecision": "ROUTING_ERROR",
+        "routingReason": "CLASSIFIER_ERROR",
+        "forbiddenChannels": [
+          "VectorGlobalSearch",
+          "IntentDirectedSearch"
+        ],
+        "forbiddenTools": [
+          "*"
+        ]
+      }
+    }
+  ]
+}

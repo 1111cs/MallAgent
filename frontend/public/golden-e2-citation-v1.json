@@ -1,0 +1,95 @@
+{
+  "suite": "huawei-mall-e2-citation-v1",
+  "status": "E2_IMPLEMENTED_PENDING_MANUAL_ACCEPTANCE",
+  "cases": [
+    {
+      "caseId": "E2-KB-01",
+      "category": "KB_CITATION",
+      "principalId": "U001",
+      "question": "Mate 系列和 Pura 系列主要有什么区别？",
+      "expected": {
+        "citationApplicable": true,
+        "minValidCitationCount": 1,
+        "expectedFinalCitationStatus": "VALID",
+        "requireNoInvalidCitationVisible": true,
+        "failureStage": "CITATION"
+      }
+    },
+    {
+      "caseId": "E2-KB-02",
+      "category": "KB_CITATION",
+      "principalId": "U001",
+      "question": "MateBook X Pro 更适合写代码还是剪视频？",
+      "expected": {
+        "citationApplicable": true,
+        "minValidCitationCount": 1,
+        "expectedFinalCitationStatus": "VALID",
+        "requireNoInvalidCitationVisible": true,
+        "failureStage": "CITATION"
+      }
+    },
+    {
+      "caseId": "E2-KB-03",
+      "category": "KB_CITATION",
+      "principalId": "U001",
+      "question": "华为商城的优惠券一般有哪些使用限制？",
+      "expected": {
+        "citationApplicable": true,
+        "minValidCitationCount": 1,
+        "expectedFinalCitationStatus": "VALID",
+        "requireNoInvalidCitationVisible": true,
+        "failureStage": "CITATION"
+      }
+    },
+    {
+      "caseId": "E2-KB-04",
+      "category": "KB_CITATION",
+      "principalId": "U001",
+      "question": "华为手机正常情况下保修多久？",
+      "expected": {
+        "citationApplicable": true,
+        "minValidCitationCount": 1,
+        "expectedFinalCitationStatus": "VALID",
+        "requireNoInvalidCitationVisible": true,
+        "failureStage": "CITATION"
+      }
+    },
+    {
+      "caseId": "E2-KB-05",
+      "category": "KB_CITATION",
+      "principalId": "U001",
+      "question": "FreeBuds 连不上手机应该怎么排查？",
+      "expected": {
+        "citationApplicable": true,
+        "minValidCitationCount": 1,
+        "expectedFinalCitationStatus": "VALID",
+        "requireNoInvalidCitationVisible": true,
+        "failureStage": "CITATION"
+      }
+    },
+    {
+      "caseId": "E2-TOOL-01",
+      "category": "TOOL_NOT_APPLICABLE",
+      "principalId": "U001",
+      "question": "帮我查订单 202609140001。",
+      "expected": {
+        "citationApplicable": false,
+        "expectedFinalCitationStatus": "NOT_APPLICABLE",
+        "failureStage": "CITATION"
+      }
+    },
+    {
+      "caseId": "E2-MIXED-01",
+      "category": "MIXED_CITATION",
+      "principalId": "U001",
+      "question": "华为手机一般保修多久？顺便查一下 SN 为 ABC001 的设备还在不在保。",
+      "expected": {
+        "citationApplicable": true,
+        "minValidCitationCount": 1,
+        "expectedFinalCitationStatus": "VALID",
+        "requireNoInvalidCitationVisible": true,
+        "failureStage": "CITATION"
+      }
+    }
+  ]
+}

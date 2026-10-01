@@ -1,0 +1,32 @@
+{
+  "suite": "huawei-mall-golden-v0-baseline",
+  "adapterVersion": "baseline-adapter-v1",
+  "datasetVersion": "huawei-mall-fixture-v1.0",
+  "asOf": "2026-09-14T10:00:00+08:00",
+  "cases": [
+    {"id":"KB-01","category":"KB_ONLY","principalId":"U001","question":"Mate 系列和 Pura 系列主要有什么区别？","expected":{"intents":["PRODUCT_COMPARE"],"resources":["KB:product-kb"],"tools":[],"clarification":false}},
+    {"id":"KB-02","category":"KB_ONLY","principalId":"U001","question":"MateBook X Pro 更适合写代码还是剪视频？","expected":{"intents":["PRODUCT_RECOMMEND_KB"],"resources":["KB:product-kb"],"tools":[],"clarification":false}},
+    {"id":"KB-03","category":"KB_ONLY","principalId":"U001","question":"华为商城的优惠券一般有哪些使用限制？","expected":{"intents":["COUPON_POLICY"],"resources":["KB:shopping-policy-kb"],"tools":[],"clarification":false}},
+    {"id":"KB-04","category":"KB_ONLY","principalId":"U001","question":"华为手机正常情况下保修多久？","expected":{"intents":["WARRANTY_POLICY"],"resources":["KB:after-sales-kb"],"tools":[],"clarification":false}},
+    {"id":"KB-05","category":"KB_ONLY","principalId":"U001","question":"FreeBuds 连不上手机应该怎么排查？","expected":{"intents":["CONNECTION_NETWORK"],"resources":["KB:support-kb"],"tools":[],"clarification":false}},
+
+    {"id":"TOOL-01","category":"NORMAL_TOOL","principalId":"U001","question":"帮我查订单 202609140001。","expected":{"intents":["ORDER_QUERY"],"resources":["MCP:getOrder"],"tools":["getOrder"],"clarification":false,"facts":{"orderNo":"202609140001","orderStatus":"SHIPPED"}}},
+    {"id":"TOOL-02","category":"NORMAL_TOOL","principalId":"U001","question":"订单 202609140001 到哪了？","expected":{"intents":["LOGISTICS_QUERY"],"resources":["MCP:getLogistics"],"tools":["getLogistics"],"clarification":false,"facts":{"orderNo":"202609140001","logisticsStatus":"IN_TRANSIT"}}},
+    {"id":"TOOL-03","category":"NORMAL_TOOL","principalId":"U001","question":"帮我查一下 SN 为 ABC001 的设备还在不在保。","expected":{"intents":["WARRANTY_STATUS"],"resources":["MCP:getWarrantyStatus"],"tools":["getWarrantyStatus"],"clarification":false,"facts":{"sn":"ABC001","warrantyStatus":"IN_WARRANTY"}}},
+    {"id":"TOOL-04","category":"NORMAL_TOOL","principalId":"U001","question":"帮我查 MateBook X Pro 换屏多少钱。","expected":{"intents":["SPARE_PART_PRICE"],"resources":["MCP:getSparePartPrice"],"tools":["getSparePartPrice"],"clarification":false,"facts":{"productId":"P-LAPTOP-001","part":"screen","estimatedTotal":"3299.00"}}},
+    {"id":"TOOL-05","category":"NORMAL_TOOL","principalId":"U001","question":"帮我查维修单 WX202609001 的进度。","expected":{"intents":["REPAIR_PROGRESS"],"resources":["MCP:getRepairProgress"],"tools":["getRepairProgress"],"clarification":false,"facts":{"serviceNo":"WX202609001","repairStatus":"REPAIRING"}}},
+
+    {"id":"MISS-01","category":"MISSING_PARAMETER","principalId":"U001","question":"帮我查维修进度。","expected":{"intents":["REPAIR_PROGRESS"],"resources":["MCP:getRepairProgress"],"tools":["getRepairProgress"],"clarification":true,"missing":["serviceNo","phone"]}},
+    {"id":"MISS-02","category":"MISSING_PARAMETER","principalId":"U001","question":"帮我看看我的设备还在不在保。","expected":{"intents":["WARRANTY_STATUS"],"resources":["MCP:getWarrantyStatus"],"tools":["getWarrantyStatus"],"clarification":true,"missing":["sn"]}},
+    {"id":"MISS-03","category":"MISSING_PARAMETER","principalId":"U001","question":"帮我看看这个优惠券为什么不能用。","expected":{"intents":["COUPON_ELIGIBILITY"],"resources":["MCP:getCouponEligibility"],"tools":["getCouponEligibility"],"clarification":true,"missing":["couponId","usageObject"]}},
+    {"id":"MISS-04","category":"MISSING_PARAMETER","principalId":"U001","question":"我想看看广州有没有货。","expected":{"intents":["PRODUCT_AVAILABILITY"],"resources":["MCP:getProductAvailability"],"tools":["getProductAvailability"],"clarification":true,"missing":["productId"]}},
+
+    {"id":"AMB-01","category":"AMBIGUOUS_ENTITY","principalId":"U002","question":"上个月买的手表还在保吗？","expected":{"intents":["WARRANTY_STATUS"],"resources":["MCP:getWarrantyStatus"],"tools":[],"clarification":true,"candidateCount":2}},
+    {"id":"AMB-02","category":"AMBIGUOUS_ENTITY","principalId":"U002","question":"我那个笔记本换屏多少钱？","expected":{"intents":["SPARE_PART_PRICE"],"resources":["MCP:getSparePartPrice"],"tools":[],"clarification":true,"candidateCount":2}},
+    {"id":"AMB-03","category":"AMBIGUOUS_ENTITY","principalId":"U002","question":"为什么我的优惠券不能用？","expected":{"intents":["COUPON_ELIGIBILITY"],"resources":["MCP:getCouponEligibility"],"tools":[],"clarification":true,"candidateCount":2}},
+
+    {"id":"DEP-01","category":"TOOL_DEPENDENCY","principalId":"U003","question":"帮我看看上个月买的手表还在不在保。","expected":{"intents":["WARRANTY_STATUS"],"resources":["MCP:getWarrantyStatus"],"toolStages":[["getOrder"],["getWarrantyStatus"]],"clarification":false,"facts":{"sn":"WATCH-SN-003","warrantyStatus":"IN_WARRANTY"}}},
+    {"id":"DEP-02","category":"TOOL_DEPENDENCY","principalId":"U003","question":"我上个月买的笔记本换屏大概多少钱？","expected":{"intents":["SPARE_PART_PRICE"],"resources":["MCP:getSparePartPrice"],"toolStages":[["getOrder"],["getSparePartPrice"]],"clarification":false,"facts":{"productId":"P-LAPTOP-001","estimatedTotal":"3299.00"}}},
+    {"id":"DEP-03","category":"TOOL_DEPENDENCY","principalId":"U003","question":"我上个月买的手表还在不在保？如果换屏的话大概多少钱？","expected":{"intents":["WARRANTY_STATUS","SPARE_PART_PRICE"],"resources":["MCP:getWarrantyStatus","MCP:getSparePartPrice"],"toolStages":[["getOrder"],["getWarrantyStatus","getSparePartPrice"]],"clarification":false,"facts":{"sn":"WATCH-SN-003","productId":"P-WATCH-001","warrantyStatus":"IN_WARRANTY","estimatedTotal":"599.00"}}}
+  ]
+}

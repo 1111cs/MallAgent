@@ -1,0 +1,12 @@
+{
+  "suite": "huawei-mall-final-e2-citation-regression-assertions-v1",
+  "cases": [
+    {"caseId":"E2-KB-01","expected":{"citationApplicable":true,"minValidCitationCount":1,"expectedFinalCitationStatus":"VALID","requireNoInvalidCitationVisible":true,"failureStage":"CITATION"}},
+    {"caseId":"E2-KB-02","expected":{"citationApplicable":true,"minValidCitationCount":1,"expectedFinalCitationStatus":"VALID","requireNoInvalidCitationVisible":true,"failureStage":"CITATION"}},
+    {"caseId":"E2-KB-03","expected":{"citationApplicable":true,"minValidCitationCount":1,"expectedFinalCitationStatus":"VALID","requireNoInvalidCitationVisible":true,"failureStage":"CITATION"}},
+    {"caseId":"E2-KB-04","expected":{"citationApplicable":true,"minValidCitationCount":1,"expectedFinalCitationStatus":"VALID","requireNoInvalidCitationVisible":true,"failureStage":"CITATION"}},
+    {"caseId":"E2-KB-05","expected":{"citationApplicable":true,"minValidCitationCount":1,"expectedFinalCitationStatus":"VALID","requireNoInvalidCitationVisible":true,"failureStage":"CITATION"}},
+    {"caseId":"E2-TOOL-01","expected":{"citationApplicable":false,"expectedFinalCitationStatus":"NOT_APPLICABLE","failureStage":"CITATION"}},
+    {"caseId":"E2-MIXED-01","expected":{"citationApplicable":true,"minValidCitationCount":1,"expectedFinalCitationStatus":"VALID","requireNoInvalidCitationVisible":true,"failureStage":"CITATION"}}
+  ]
+}

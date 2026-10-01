@@ -1,0 +1,36 @@
+{
+  "status": "FROZEN_BASELINE_ADAPTER_V1",
+  "datasetVersion": "huawei-mall-fixture-v1.0",
+  "asOf": "2026-09-14T10:00:00+08:00",
+  "timezone": "Asia/Shanghai",
+  "lastMonth": {
+    "startInclusive": "2026-08-01T00:00:00+08:00",
+    "endExclusive": "2026-09-01T00:00:00+08:00"
+  },
+  "caseFacts": [
+    {"caseId":"KB-01","fixtureId":"fixture_kb_public","principalId":"U001","facts":{"dbRequired":false,"series":["Mate","Pura"]}},
+    {"caseId":"KB-02","fixtureId":"fixture_kb_public","principalId":"U001","facts":{"dbRequired":false,"model":"MateBook X Pro 2026"}},
+    {"caseId":"KB-03","fixtureId":"fixture_kb_public","principalId":"U001","facts":{"dbRequired":false,"kb":"shopping-policy-kb"}},
+    {"caseId":"KB-04","fixtureId":"fixture_kb_public","principalId":"U001","facts":{"dbRequired":false,"kb":"after-sales-kb"}},
+    {"caseId":"KB-05","fixtureId":"fixture_kb_public","principalId":"U001","facts":{"dbRequired":false,"kb":"support-kb"}},
+
+    {"caseId":"TOOL-01","fixtureId":"fixture_normal_u001","principalId":"U001","facts":{"orderNo":"202609140001","orderId":"O-U001-001","orderStatus":"SHIPPED"}},
+    {"caseId":"TOOL-02","fixtureId":"fixture_normal_u001","principalId":"U001","facts":{"orderNo":"202609140001","trackingNo":"SF202609140001","logisticsStatus":"IN_TRANSIT","eventCount":2}},
+    {"caseId":"TOOL-03","fixtureId":"fixture_normal_u001","principalId":"U001","facts":{"sn":"ABC001","warrantyStatus":"IN_WARRANTY","warrantyEnd":"2027-07-09"}},
+    {"caseId":"TOOL-04","fixtureId":"fixture_normal_u001","principalId":"U001","facts":{"model":"MateBook X Pro 2026","productId":"P-LAPTOP-001","part":"screen","region":"CN_DEFAULT","currentPriceEffectiveAt":"2026-09-01T00:00:00+08:00","partPrice":"2999.00","laborFee":"300.00","estimatedTotal":"3299.00"}},
+    {"caseId":"TOOL-05","fixtureId":"fixture_normal_u001","principalId":"U001","facts":{"serviceNo":"WX202609001","repairStatus":"REPAIRING","progressEventCount":3}},
+
+    {"caseId":"MISS-01","fixtureId":"fixture_missing_u001","principalId":"U001","facts":{"queryHasServiceNo":false,"queryHasPhone":false,"ownedRepairCount":2}},
+    {"caseId":"MISS-02","fixtureId":"fixture_missing_u001","principalId":"U001","facts":{"queryHasSn":false,"historyHasSn":false,"ownedDeviceCount":2}},
+    {"caseId":"MISS-03","fixtureId":"fixture_missing_u001","principalId":"U001","facts":{"queryHasCouponId":false,"queryHasUsageObject":false,"historyHasCouponId":false,"ownedUnusedCouponCount":2}},
+    {"caseId":"MISS-04","fixtureId":"fixture_missing_u001","principalId":"U001","facts":{"queryRegion":"GUANGZHOU","queryHasProductId":false,"historyHasProductId":false,"availableProductCount":20}},
+
+    {"caseId":"AMB-01","fixtureId":"fixture_amb_u002","principalId":"U002","facts":{"augustWearableOrderNos":["202608100001","202608200001"],"sns":["WATCH-SN-002-GT","WATCH-SN-002-FIT"],"candidateCount":2}},
+    {"caseId":"AMB-02","fixtureId":"fixture_amb_u002","principalId":"U002","facts":{"ownedLaptopProductIds":["P-LAPTOP-001","P-LAPTOP-002"],"ownedLaptopCount":2,"screenPriceCandidateCount":2}},
+    {"caseId":"AMB-03","fixtureId":"fixture_amb_u002","principalId":"U002","facts":{"unusedCouponIds":["C001","C002"],"unusedCouponCount":2,"historyIsFixture":true}},
+
+    {"caseId":"DEP-01","fixtureId":"fixture_dep_u003","principalId":"U003","facts":{"augustWearableOrderNo":"202608120001","productId":"P-WATCH-001","sn":"WATCH-SN-003","warrantyStatus":"IN_WARRANTY","candidateCount":1}},
+    {"caseId":"DEP-02","fixtureId":"fixture_dep_u003","principalId":"U003","facts":{"augustLaptopOrderNo":"202608180001","productId":"P-LAPTOP-001","part":"screen","region":"CN_DEFAULT","estimatedTotal":"3299.00","candidateCount":1}},
+    {"caseId":"DEP-03","fixtureId":"fixture_dep_u003","principalId":"U003","facts":{"augustWearableOrderNo":"202608120001","productId":"P-WATCH-001","sn":"WATCH-SN-003","warrantyStatus":"IN_WARRANTY","part":"screen","region":"CN_DEFAULT","estimatedTotal":"599.00","candidateCount":1}}
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "status": "FROZEN_BASELINE_ADAPTER_V1",
+  "physicalModel": "Five L1 domain roots, one neutral category per domain, and resource-specific topic leaves. PRODUCT_RECOMMEND has paired KB/MCP leaves.",
+  "promptTemplate": null,
+  "paramPromptTemplate": null,
+  "routes": [
+    {"domain":"PRODUCT","code":"PRODUCT_INFO","name":"产品信息","resource":"KB","kb":"product-kb","description":"商品的稳定规格、能力与适用人群","examples":["这款手机有哪些固定规格","介绍一下这台平板适合哪些人群"]},
+    {"domain":"PRODUCT","code":"PRODUCT_COMPARE","name":"产品比较","resource":"KB","kb":"product-kb","description":"不同产品系列或型号的稳定能力比较","examples":["比较两个产品系列的定位差异","对比两款商品的规格与适用场景","两个产品型号主要有什么区别"]},
+    {"domain":"PRODUCT","code":"PRODUCT_RECOMMEND_KB","logicalCode":"PRODUCT_RECOMMEND","name":"选购建议知识","resource":"KB","kb":"product-kb","description":"解释商品能力和使用场景，现售候选应查工具","examples":["轻薄本适合日常编程吗","视频剪辑应该关注哪些笔记本能力"]},
+    {"domain":"PRODUCT","code":"PRODUCT_RECOMMEND_TOOL","logicalCode":"PRODUCT_RECOMMEND","name":"商品候选筛选","resource":"MCP","tool":"searchProducts","description":"按品类、预算与使用需求筛选实验商品候选","examples":["预算八千以内筛选适合出差的笔记本","找几款满足大内存需求的轻薄本"]},
+    {"domain":"PRODUCT","code":"PRODUCT_COMPATIBILITY","name":"产品兼容性","resource":"KB","kb":"product-kb","description":"稳定的商品兼容性与接口说明","examples":["这款耳机能否与手机配对使用","某配件是否兼容指定型号"]},
+    {"domain":"PRODUCT","code":"PRODUCT_AVAILABILITY","name":"商品库存","resource":"MCP","tool":"getProductAvailability","description":"查询具体商品和地区的固定库存状态","examples":["查询某个商品在北京的库存","看看指定商品当前是否有货"]},
+    {"domain":"SHOPPING_POLICY","code":"COUPON_POLICY","name":"优惠券通用政策","resource":"KB","kb":"shopping-policy-kb","description":"优惠券一般使用限制、有效期和叠加规则","examples":["优惠券通常能不能叠加使用","商城券的有效期和使用门槛怎么规定"]},
+    {"domain":"SHOPPING_POLICY","code":"COUPON_ELIGIBILITY","name":"具体优惠券可用性","resource":"MCP","tool":"getCouponEligibility","description":"某个登录用户的具体券对订单或商品是否适用","examples":["检查指定优惠券能否用于这笔订单","判断一张券是否适用于这些商品"]},
+    {"domain":"SHOPPING_POLICY","code":"INVOICE_POLICY","name":"发票政策","resource":"KB","kb":"shopping-policy-kb","description":"自营商品发票开具和下载的通用规则","examples":["自营商品如何申请电子发票","发票开具后在哪里下载"]},
+    {"domain":"SHOPPING_POLICY","code":"DELIVERY_POLICY","name":"配送政策","resource":"KB","kb":"shopping-policy-kb","description":"商城通用配送方式、覆盖范围与通用物流查询入口，不处理带订单号的当前轨迹","examples":["商城自营订单通常采用哪些配送方式","一般物流查询入口有哪些规则","哪些地区支持商城送货服务"]},
+    {"domain":"SHOPPING_POLICY","code":"RETURN_POLICY","name":"退换货政策","resource":"KB","kb":"shopping-policy-kb","description":"退换申请期限和处理方式的通用规则","examples":["商品退换申请有哪些通用条件","七天无理由退货一般怎么办理"]},
+    {"domain":"ORDER","code":"ORDER_QUERY","name":"个人订单查询","resource":"MCP","tool":"getOrder","description":"查询登录用户本人订单、订单号或时间范围","examples":["查询我今年九月的订单记录","列出我购买过的路由器订单"]},
+    {"domain":"ORDER","code":"LOGISTICS_QUERY","name":"个人订单物流","resource":"MCP","tool":"getLogistics","description":"根据具体订单号查询登录用户某笔订单当前到达的配送节点、物流事件和预计送达时间","examples":["查看我这笔订单现在运到哪里了","查询订单号对应包裹预计何时送达","按订单编号查询当前配送节点"]},
+    {"domain":"ORDER","code":"ORDER_CHANGE","name":"订单修改入口","resource":"SYSTEM","description":"订单修改不由本实验工具执行，应引导到官方入口","examples":["已经提交的订单怎么修改地址","订单下单后能否更换商品"]},
+    {"domain":"AFTER_SALES","code":"WARRANTY_POLICY","name":"保修政策","resource":"KB","kb":"after-sales-kb","description":"手机等设备的通用保修期限与凭证规则","examples":["手机主机的一般保修期限是什么","保修期通常从什么时间开始计算"]},
+    {"domain":"AFTER_SALES","code":"WARRANTY_STATUS","name":"个人设备保修状态","resource":"MCP","tool":"getWarrantyStatus","description":"根据具体 SN 查询登录用户设备当前保修状态","examples":["根据设备序列号查询当前保修状态","确认我名下某台设备的保修起止日期"]},
+    {"domain":"AFTER_SALES","code":"SPARE_PART_PRICE","name":"备件维修估价","resource":"MCP","tool":"getSparePartPrice","description":"按产品型号、部件和地区查询固定备件及人工费用","examples":["查询指定型号电池的更换费用","某款设备更换主板需要多少钱"]},
+    {"domain":"AFTER_SALES","code":"REPAIR_SERVICE","name":"维修服务规则","resource":"KB","kb":"after-sales-kb","description":"维修服务方式和办理规则的稳定知识","examples":["送修设备通常有哪些服务方式","维修前需要准备哪些凭证"]},
+    {"domain":"AFTER_SALES","code":"REPAIR_PROGRESS","name":"个人维修进度","resource":"MCP","tool":"getRepairProgress","description":"查询登录用户本人维修单的当前状态与历史事件","examples":["根据服务单号查看维修处理阶段","用预留手机号查询维修记录"]},
+    {"domain":"AFTER_SALES","code":"SERVICE_CENTER","name":"服务中心知识","resource":"KB","kb":"after-sales-kb","description":"授权服务中心查询及检测服务的通用知识","examples":["如何查找授权服务中心","服务中心一般能提供哪些检测服务"]},
+    {"domain":"SUPPORT","code":"USAGE_GUIDE","name":"使用说明","resource":"KB","kb":"support-kb","description":"设备使用步骤和通用操作说明","examples":["耳机第一次使用如何完成配对","手表如何与配套应用建立连接"]},
+    {"domain":"SUPPORT","code":"TROUBLESHOOTING","name":"故障排查","resource":"KB","kb":"support-kb","description":"设备功能异常的逐步排查，包括单耳无声、频繁重启等非配对连接故障","examples":["设备频繁重启应该按什么顺序排查","音频设备播放异常如何逐步排查"]},
+    {"domain":"SUPPORT","code":"CONNECTION_NETWORK","name":"连接与网络","resource":"KB","kb":"support-kb","description":"Wi-Fi、蓝牙搜索、配对和连接失败问题的排查，不包含连接成功后的音频播放故障","examples":["电脑连上无线网络后不能上网怎么办","手机搜索不到蓝牙设备怎么检查"]},
+    {"domain":"SUPPORT","code":"CHARGING_BATTERY","name":"充电与电池","resource":"KB","kb":"support-kb","description":"充电状态和电池问题的通用知识","examples":["手机充电速度异常怎么排查","设备电量下降过快可能检查哪些方面"]}
+  ],
+  "contractAddendum": "V1.1 resource table omits getProductAvailability and getCouponEligibility despite freezing both Tools and Golden cases. PRODUCT_AVAILABILITY and COUPON_ELIGIBILITY are adapter-only resource routes; they add no planning or clarification logic."
+}

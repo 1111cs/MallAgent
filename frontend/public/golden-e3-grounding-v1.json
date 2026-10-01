@@ -1,0 +1,4 @@
+{"suite":"huawei-mall-e3-grounding-v1","adapterVersion":"ours-e3-v1","datasetVersion":"huawei-mall-fixture-v1.0","asOf":"2026-09-14T10:00:00+08:00","cases":[
+{"id":"E3-KB-01","category":"KB_GROUNDING","principalId":"U001","question":"华为手机正常情况下保修多久？"},
+{"id":"E3-MIXED-01","category":"MIXED_GROUNDING","principalId":"U001","question":"华为手机一般保修多久？顺便查一下 SN 为 ABC001 的设备还在不在保。"},
+{"id":"E3-TOOL-01","category":"TOOL_GROUNDING","principalId":"U001","question":"帮我查一下 SN 为 ABC001 的设备还在不在保。"}]}

@@ -1,0 +1,14 @@
+{
+  "suite": "huawei-mall-final-routing-regression-assertions-v1",
+  "cases": [
+    {"caseId":"RG-01","expected":{"expectedRoutingDecision":"AUTH_CONTEXT","expectedRoutingReason":"SELF_IDENTITY_QUERY","expectedTools":[],"failureStage":"ROUTING"}},
+    {"caseId":"RG-02","expected":{"expectedRoutingDecision":"SYSTEM","expectedRoutingReason":"SYSTEM_META_QUERY","expectedTools":[],"failureStage":"ROUTING"}},
+    {"caseId":"RG-03","expected":{"expectedRoutingDecision":"OUT_OF_SCOPE","expectedRoutingReason":"OUT_OF_BUSINESS_SCOPE","expectedTools":[],"failureStage":"ROUTING"}},
+    {"caseId":"RG-04","expected":{"expectedRoutingDecision":"NEED_CLARIFICATION","expectedRoutingReason":"INCOMPLETE_BUSINESS_REQUEST","expectedTools":[],"failureStage":"ROUTING"}},
+    {"caseId":"RG-05","expected":{"expectedRoutingDecision":"GLOBAL_KB_FALLBACK","expectedRoutingReason":"PUBLIC_KNOWLEDGE_NO_TRUSTED_INTENT","expectedTools":[],"failureStage":"ROUTING"}},
+    {"caseId":"RG-06","expected":{"expectedRoutingDecision":"ROUTED","expectedRoutingReason":"NONE","expectedIntent":["PRODUCT_RECOMMEND_KB"],"expectedResource":["KB:product-kb"],"expectedTools":[],"forbiddenTools":["searchProducts"],"failureStage":"ROUTING"}},
+    {"caseId":"RG-07","expected":{"expectedRoutingDecision":"ROUTED","expectedRoutingReason":"NONE","expectedIntent":["CONNECTION_NETWORK"],"expectedResource":["KB:support-kb"],"expectedTools":[],"failureStage":"ROUTING"}},
+    {"caseId":"RG-08-A","expected":{"expectedRoutingDecision":"ROUTED","expectedRoutingReason":"NONE","expectedIntent":["ORDER_QUERY"],"expectedResource":["MCP:getOrder"],"expectedTools":["getOrder"],"forbiddenTools":["getLogistics"],"expectedToolSequence":["getOrder"],"failureStage":"ROUTING"}},
+    {"caseId":"RG-08-B","expected":{"expectedRoutingDecision":"ROUTED","expectedRoutingReason":"NONE","expectedIntent":["LOGISTICS_QUERY"],"expectedResource":["MCP:getLogistics"],"expectedTools":["getLogistics"],"forbiddenTools":["getOrder"],"expectedToolSequence":["getLogistics"],"failureStage":"ROUTING"}}
+  ]
+}

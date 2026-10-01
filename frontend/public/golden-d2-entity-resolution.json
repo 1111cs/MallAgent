@@ -1,0 +1,94 @@
+{
+  "suite": "huawei-mall-d2-entity-resolution",
+  "principalId": "U002",
+  "cases": [
+    {
+      "id": "TOOL-04",
+      "principalId": "U001",
+      "turns": [
+        "帮我查 MateBook X Pro 换屏多少钱。"
+      ],
+      "expected": {
+        "entityStatus": "UNIQUE",
+        "entityTarget": "productId",
+        "parameterSource": "ENTITY_RESOLUTION",
+        "tool": "getSparePartPrice"
+      }
+    },
+    {
+      "id": "AMB-01",
+      "turns": [
+        "我的手表还在不在保？",
+        "第二块。"
+      ],
+      "expected": {
+        "round1": {
+          "entityStatus": "AMBIGUOUS",
+          "candidateCount": 2,
+          "taskStatus": "NEED_SELECTION",
+          "forbiddenTool": "getWarrantyStatus"
+        },
+        "round2": {
+          "entityStatus": "UNIQUE",
+          "selectedCandidateIdPresent": true,
+          "parameterSource": "ENTITY_RESOLUTION",
+          "tool": "getWarrantyStatus"
+        }
+      }
+    },
+    {
+      "id": "AMB-02",
+      "turns": [
+        "我的笔记本换屏多少钱？",
+        "第一台。"
+      ],
+      "expected": {
+        "round1": {
+          "entityStatus": "AMBIGUOUS",
+          "candidateCount": 2,
+          "taskStatus": "NEED_SELECTION",
+          "forbiddenTool": "getSparePartPrice"
+        },
+        "round2": {
+          "entityStatus": "UNIQUE",
+          "selectedCandidateIdPresent": true,
+          "parameterSource": "ENTITY_RESOLUTION",
+          "tool": "getSparePartPrice"
+        }
+      }
+    },
+    {
+      "id": "AMB-03",
+      "turns": [
+        "为什么我的优惠券不能用？",
+        "第一张。",
+        "用于订单 202607050001。"
+      ],
+      "expected": {
+        "round1": {
+          "entityStatus": "AMBIGUOUS",
+          "candidateCount": 2,
+          "taskStatus": "NEED_SELECTION",
+          "forbiddenTool": "getCouponEligibility"
+        },
+        "round2": {
+          "taskStatus": "NEED_CLARIFICATION",
+          "parameterSource": "ENTITY_RESOLUTION",
+          "forbiddenTool": "getCouponEligibility"
+        },
+        "round3": {
+          "taskStatus": "COMPLETED",
+          "tool": "getCouponEligibility"
+        }
+      }
+    }
+  ],
+  "status": "D2_TOOL_SCOPED_ENTITY_RESOLUTION_PASSED",
+  "acceptedAt": "2026-09-18",
+  "observed": {
+    "TOOL-04": "PASS: MateBook X Pro -> P-LAPTOP-001 -> 3299.00 CNY",
+    "AMB-01": "PASS: two watches -> second -> WATCH-SN-002-FIT -> IN_WARRANTY",
+    "AMB-02": "PASS: two laptops -> first -> P-LAPTOP-001 -> 3299.00 CNY",
+    "AMB-03": "PASS: two coupons -> first -> order 202607050001 -> eligible"
+  }
+}

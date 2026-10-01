@@ -1,0 +1,17 @@
+{
+  "suite": "huawei-mall-final-routing-regression-v1",
+  "adapterVersion": "ours-final-v1",
+  "datasetVersion": "huawei-mall-fixture-v1.0",
+  "asOf": "2026-09-14T10:00:00+08:00",
+  "cases": [
+    {"id":"RG-01","category":"ROUTING","principalId":"U001","question":"我的用户编号是多少？"},
+    {"id":"RG-02","category":"ROUTING","principalId":"U001","question":"你能帮我处理哪些商城问题？"},
+    {"id":"RG-03","category":"ROUTING","principalId":"U001","question":"帮我订一张明天北京飞上海的机票。"},
+    {"id":"RG-04","category":"ROUTING","principalId":"U001","question":"帮我查一下。"},
+    {"id":"RG-05","category":"ROUTING","principalId":"U001","question":"我想了解商城里公开的购买、配送和售后通用规则。"},
+    {"id":"RG-06","category":"ROUTING","principalId":"U001","question":"MateBook X Pro 更适合写代码还是剪视频？"},
+    {"id":"RG-07","category":"ROUTING","principalId":"U001","question":"FreeBuds 连不上手机应该怎么排查？"},
+    {"id":"RG-08-A","category":"ROUTING","principalId":"U001","question":"帮我查订单 202609140001。"},
+    {"id":"RG-08-B","category":"ROUTING","principalId":"U001","question":"订单 202609140001 到哪了？"}
+  ]
+}

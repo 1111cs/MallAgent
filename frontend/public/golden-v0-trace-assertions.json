@@ -1,0 +1,587 @@
+{
+  "suite": "huawei-mall-golden-v0-trace-assertions",
+  "checkpointBStatus": "CHECKPOINT_B_MINIMAL_STRUCTURED_TRACE_PASSED",
+  "assertionVersion": "checkpoint-c-v1",
+  "cases": [
+    {
+      "caseId": "KB-01",
+      "category": "KB_ONLY",
+      "principalId": "U001",
+      "question": "Mate 系列和 Pura 系列主要有什么区别？",
+      "expected": {
+        "expectedIntent": [
+          "PRODUCT_COMPARE"
+        ],
+        "expectedResource": [
+          "KB:product-kb"
+        ],
+        "failureStage": "ROUTING",
+        "expectedTools": [],
+        "expectedToolSequence": []
+      }
+    },
+    {
+      "caseId": "KB-02",
+      "category": "KB_ONLY",
+      "principalId": "U001",
+      "question": "MateBook X Pro 更适合写代码还是剪视频？",
+      "expected": {
+        "expectedIntent": [
+          "PRODUCT_RECOMMEND_KB"
+        ],
+        "expectedResource": [
+          "KB:product-kb"
+        ],
+        "failureStage": "ROUTING",
+        "expectedTools": [],
+        "expectedToolSequence": []
+      }
+    },
+    {
+      "caseId": "KB-03",
+      "category": "KB_ONLY",
+      "principalId": "U001",
+      "question": "华为商城的优惠券一般有哪些使用限制？",
+      "expected": {
+        "expectedIntent": [
+          "COUPON_POLICY"
+        ],
+        "expectedResource": [
+          "KB:shopping-policy-kb"
+        ],
+        "failureStage": "ROUTING",
+        "expectedTools": [],
+        "expectedToolSequence": []
+      }
+    },
+    {
+      "caseId": "KB-04",
+      "category": "KB_ONLY",
+      "principalId": "U001",
+      "question": "华为手机正常情况下保修多久？",
+      "expected": {
+        "expectedIntent": [
+          "WARRANTY_POLICY"
+        ],
+        "expectedResource": [
+          "KB:after-sales-kb"
+        ],
+        "failureStage": "ROUTING",
+        "expectedTools": [],
+        "expectedToolSequence": []
+      }
+    },
+    {
+      "caseId": "KB-05",
+      "category": "KB_ONLY",
+      "principalId": "U001",
+      "question": "FreeBuds 连不上手机应该怎么排查？",
+      "expected": {
+        "expectedIntent": [
+          "CONNECTION_NETWORK"
+        ],
+        "expectedResource": [
+          "KB:support-kb"
+        ],
+        "failureStage": "ROUTING",
+        "expectedTools": [],
+        "expectedToolSequence": []
+      }
+    },
+    {
+      "caseId": "TOOL-01",
+      "category": "NORMAL_TOOL",
+      "principalId": "U001",
+      "question": "帮我查订单 202609140001。",
+      "expected": {
+        "expectedIntent": [
+          "ORDER_QUERY"
+        ],
+        "expectedResource": [
+          "MCP:getOrder"
+        ],
+        "failureStage": "NORMAL_TOOL_EXECUTION",
+        "expectedResolutionStatus": "RESOLVED",
+        "expectedTools": [
+          "getOrder"
+        ],
+        "forbiddenTools": [],
+        "expectedToolSequence": [
+          "getOrder"
+        ],
+        "expectedParameterSource": {
+          "getOrder": {
+            "orderNo": "USER_QUERY"
+          }
+        },
+        "expectedTransportStatus": {
+          "getOrder": "SUCCESS"
+        },
+        "expectedBusinessStatus": {
+          "getOrder": "OK"
+        }
+      }
+    },
+    {
+      "caseId": "TOOL-02",
+      "category": "NORMAL_TOOL",
+      "principalId": "U001",
+      "question": "订单 202609140001 到哪了？",
+      "expected": {
+        "expectedIntent": [
+          "LOGISTICS_QUERY"
+        ],
+        "expectedResource": [
+          "MCP:getLogistics"
+        ],
+        "failureStage": "NORMAL_TOOL_EXECUTION",
+        "expectedResolutionStatus": "RESOLVED",
+        "expectedTools": [
+          "getLogistics"
+        ],
+        "forbiddenTools": [],
+        "expectedToolSequence": [
+          "getLogistics"
+        ],
+        "expectedParameterSource": {
+          "getLogistics": {
+            "orderNo": "USER_QUERY"
+          }
+        },
+        "expectedTransportStatus": {
+          "getLogistics": "SUCCESS"
+        },
+        "expectedBusinessStatus": {
+          "getLogistics": "OK"
+        }
+      }
+    },
+    {
+      "caseId": "TOOL-03",
+      "category": "NORMAL_TOOL",
+      "principalId": "U001",
+      "question": "帮我查一下 SN 为 ABC001 的设备还在不在保。",
+      "expected": {
+        "expectedIntent": [
+          "WARRANTY_STATUS"
+        ],
+        "expectedResource": [
+          "MCP:getWarrantyStatus"
+        ],
+        "failureStage": "NORMAL_TOOL_EXECUTION",
+        "expectedResolutionStatus": "RESOLVED",
+        "expectedTools": [
+          "getWarrantyStatus"
+        ],
+        "forbiddenTools": [],
+        "expectedToolSequence": [
+          "getWarrantyStatus"
+        ],
+        "expectedParameterSource": {
+          "getWarrantyStatus": {
+            "sn": "ENTITY_RESOLUTION",
+            "principalId": "AUTH_CONTEXT"
+          }
+        },
+        "expectedTransportStatus": {
+          "getWarrantyStatus": "SUCCESS"
+        },
+        "expectedBusinessStatus": {
+          "getWarrantyStatus": "OK"
+        }
+      }
+    },
+    {
+      "caseId": "TOOL-04",
+      "category": "NORMAL_TOOL",
+      "principalId": "U001",
+      "question": "帮我查 MateBook X Pro 换屏多少钱。",
+      "expected": {
+        "expectedIntent": [
+          "SPARE_PART_PRICE"
+        ],
+        "expectedResource": [
+          "MCP:getSparePartPrice"
+        ],
+        "failureStage": "NORMAL_TOOL_EXECUTION",
+        "expectedResolutionStatus": "RESOLVED",
+        "expectedTools": [
+          "getSparePartPrice"
+        ],
+        "forbiddenTools": [],
+        "expectedToolSequence": [
+          "getSparePartPrice"
+        ],
+        "expectedParameterSource": {
+          "getSparePartPrice": {
+            "productId": "ENTITY_RESOLUTION",
+            "part": "USER_QUERY"
+          }
+        },
+        "expectedTransportStatus": {
+          "getSparePartPrice": "SUCCESS"
+        },
+        "expectedBusinessStatus": {
+          "getSparePartPrice": "OK"
+        }
+      }
+    },
+    {
+      "caseId": "TOOL-05",
+      "category": "NORMAL_TOOL",
+      "principalId": "U001",
+      "question": "帮我查维修单 WX202609001 的进度。",
+      "expected": {
+        "expectedIntent": [
+          "REPAIR_PROGRESS"
+        ],
+        "expectedResource": [
+          "MCP:getRepairProgress"
+        ],
+        "failureStage": "NORMAL_TOOL_EXECUTION",
+        "expectedResolutionStatus": "RESOLVED",
+        "expectedTools": [
+          "getRepairProgress"
+        ],
+        "forbiddenTools": [],
+        "expectedToolSequence": [
+          "getRepairProgress"
+        ],
+        "expectedParameterSource": {
+          "getRepairProgress": {
+            "serviceNo": "USER_QUERY",
+            "principalId": "AUTH_CONTEXT"
+          }
+        },
+        "expectedTransportStatus": {
+          "getRepairProgress": "SUCCESS"
+        },
+        "expectedBusinessStatus": {
+          "getRepairProgress": "OK"
+        }
+      }
+    },
+    {
+      "caseId": "MISS-01",
+      "category": "MISSING_PARAMETER",
+      "principalId": "U001",
+      "question": "帮我查维修进度。",
+      "expected": {
+        "expectedIntent": [
+          "REPAIR_PROGRESS"
+        ],
+        "expectedResource": [
+          "MCP:getRepairProgress"
+        ],
+        "failureStage": "MISSING_PARAMETER_HANDLING",
+        "expectedResolutionStatus": "MISSING",
+        "expectedMissingParameters": {
+          "getRepairProgress": [
+            "serviceNo",
+            "phone"
+          ]
+        },
+        "expectedTools": [],
+        "forbiddenTools": [
+          "getRepairProgress"
+        ],
+        "expectedToolSequence": []
+      }
+    },
+    {
+      "caseId": "MISS-02",
+      "category": "MISSING_PARAMETER",
+      "principalId": "U001",
+      "question": "帮我看看我的设备还在不在保。",
+      "expected": {
+        "expectedIntent": [
+          "WARRANTY_STATUS"
+        ],
+        "expectedResource": [
+          "MCP:getWarrantyStatus"
+        ],
+        "failureStage": "MISSING_PARAMETER_HANDLING",
+        "expectedResolutionStatus": "MISSING",
+        "expectedMissingParameters": {
+          "getWarrantyStatus": [
+            "sn"
+          ]
+        },
+        "expectedTools": [],
+        "forbiddenTools": [
+          "getWarrantyStatus"
+        ],
+        "expectedToolSequence": []
+      }
+    },
+    {
+      "caseId": "MISS-03",
+      "category": "MISSING_PARAMETER",
+      "principalId": "U001",
+      "question": "帮我看看这个优惠券为什么不能用。",
+      "expected": {
+        "expectedIntent": [
+          "COUPON_ELIGIBILITY"
+        ],
+        "expectedResource": [
+          "MCP:getCouponEligibility"
+        ],
+        "failureStage": "MISSING_PARAMETER_HANDLING",
+        "expectedResolutionStatus": "MISSING",
+        "expectedMissingParameters": {
+          "getCouponEligibility": [
+            "couponId",
+            "orderNo",
+            "productIds"
+          ]
+        },
+        "expectedTools": [],
+        "forbiddenTools": [
+          "getCouponEligibility"
+        ],
+        "expectedToolSequence": []
+      }
+    },
+    {
+      "caseId": "MISS-04",
+      "category": "MISSING_PARAMETER",
+      "principalId": "U001",
+      "question": "我想看看广州有没有货。",
+      "expected": {
+        "expectedIntent": [
+          "PRODUCT_AVAILABILITY"
+        ],
+        "expectedResource": [
+          "MCP:getProductAvailability"
+        ],
+        "failureStage": "MISSING_PARAMETER_HANDLING",
+        "expectedResolutionStatus": "MISSING",
+        "expectedMissingParameters": {
+          "getProductAvailability": [
+            "productId"
+          ]
+        },
+        "expectedTools": [],
+        "forbiddenTools": [
+          "getProductAvailability"
+        ],
+        "expectedToolSequence": []
+      }
+    },
+    {
+      "caseId": "AMB-01",
+      "category": "AMBIGUOUS_ENTITY",
+      "principalId": "U002",
+      "question": "上个月买的手表还在保吗？",
+      "expected": {
+        "expectedIntent": [
+          "WARRANTY_STATUS"
+        ],
+        "expectedResource": [
+          "MCP:getWarrantyStatus"
+        ],
+        "failureStage": "AMBIGUITY_RESOLUTION",
+        "expectedResolutionStatus": "RESOLVED",
+        "expectedTools": [
+          "getOrder"
+        ],
+        "forbiddenTools": [
+          "getWarrantyStatus"
+        ],
+        "expectedToolSequence": [
+          "getOrder"
+        ],
+        "expectedToolPlan": [
+          [
+            "getOrder"
+          ],
+          [
+            "getWarrantyStatus"
+          ]
+        ],
+        "expectedParameterSource": {
+          "getOrder": {
+            "timeRange": "USER_QUERY",
+            "category": "USER_QUERY",
+            "principalId": "AUTH_CONTEXT"
+          }
+        },
+        "expectedTransportStatus": {
+          "getOrder": "SUCCESS"
+        },
+        "expectedBusinessStatus": {
+          "getOrder": "MULTIPLE_MATCHES"
+        },
+        "expectedTaskStatus": "NEED_SELECTION",
+        "expectedEntityResolutionStatus": "AMBIGUOUS",
+        "expectedEntityTarget": "dependencyCandidate",
+        "expectedCandidateCount": 2
+      }
+    },
+    {
+      "caseId": "AMB-02",
+      "category": "AMBIGUOUS_ENTITY",
+      "principalId": "U002",
+      "question": "我那个笔记本换屏多少钱？",
+      "expected": {
+        "expectedIntent": [
+          "SPARE_PART_PRICE"
+        ],
+        "expectedResource": [
+          "MCP:getSparePartPrice"
+        ],
+        "failureStage": "AMBIGUITY_RESOLUTION",
+        "expectedResolutionStatus": "AMBIGUOUS",
+        "expectedTools": [],
+        "forbiddenTools": [
+          "getSparePartPrice"
+        ],
+        "expectedToolSequence": []
+      }
+    },
+    {
+      "caseId": "AMB-03",
+      "category": "AMBIGUOUS_ENTITY",
+      "principalId": "U002",
+      "question": "为什么我的优惠券不能用？",
+      "expected": {
+        "expectedIntent": [
+          "COUPON_ELIGIBILITY"
+        ],
+        "expectedResource": [
+          "MCP:getCouponEligibility"
+        ],
+        "failureStage": "AMBIGUITY_RESOLUTION",
+        "expectedResolutionStatus": "AMBIGUOUS",
+        "expectedTools": [],
+        "forbiddenTools": [
+          "getCouponEligibility"
+        ],
+        "expectedToolSequence": []
+      }
+    },
+    {
+      "caseId": "DEP-01",
+      "category": "TOOL_DEPENDENCY",
+      "principalId": "U003",
+      "question": "帮我看看上个月买的手表还在不在保。",
+      "expected": {
+        "expectedIntent": [
+          "WARRANTY_STATUS"
+        ],
+        "expectedResource": [
+          "MCP:getWarrantyStatus"
+        ],
+        "failureStage": "DEPENDENCY_EXECUTION",
+        "expectedResolutionStatus": "RESOLVED",
+        "expectedTools": [
+          "getOrder",
+          "getWarrantyStatus"
+        ],
+        "forbiddenTools": [],
+        "expectedToolSequence": [
+          "getOrder",
+          "getWarrantyStatus"
+        ],
+        "expectedParameterSource": {
+          "getWarrantyStatus": {
+            "sn": "TOOL_OUTPUT"
+          }
+        },
+        "expectedTransportStatus": {
+          "getOrder": "SUCCESS",
+          "getWarrantyStatus": "SUCCESS"
+        },
+        "expectedBusinessStatus": {
+          "getOrder": "OK",
+          "getWarrantyStatus": "OK"
+        }
+      }
+    },
+    {
+      "caseId": "DEP-02",
+      "category": "TOOL_DEPENDENCY",
+      "principalId": "U003",
+      "question": "我上个月买的笔记本换屏大概多少钱？",
+      "expected": {
+        "expectedIntent": [
+          "SPARE_PART_PRICE"
+        ],
+        "expectedResource": [
+          "MCP:getSparePartPrice"
+        ],
+        "failureStage": "DEPENDENCY_EXECUTION",
+        "expectedResolutionStatus": "RESOLVED",
+        "expectedTools": [
+          "getOrder",
+          "getSparePartPrice"
+        ],
+        "forbiddenTools": [],
+        "expectedToolSequence": [
+          "getOrder",
+          "getSparePartPrice"
+        ],
+        "expectedParameterSource": {
+          "getSparePartPrice": {
+            "productId": "TOOL_OUTPUT"
+          }
+        },
+        "expectedTransportStatus": {
+          "getOrder": "SUCCESS",
+          "getSparePartPrice": "SUCCESS"
+        },
+        "expectedBusinessStatus": {
+          "getOrder": "OK",
+          "getSparePartPrice": "OK"
+        }
+      }
+    },
+    {
+      "caseId": "DEP-03",
+      "category": "TOOL_DEPENDENCY",
+      "principalId": "U003",
+      "question": "我上个月买的手表还在不在保？如果换屏的话大概多少钱？",
+      "expected": {
+        "expectedIntent": [
+          "WARRANTY_STATUS",
+          "SPARE_PART_PRICE"
+        ],
+        "expectedResource": [
+          "MCP:getWarrantyStatus",
+          "MCP:getSparePartPrice"
+        ],
+        "failureStage": "DEPENDENCY_EXECUTION",
+        "expectedResolutionStatus": "RESOLVED",
+        "expectedTools": [
+          "getOrder",
+          "getWarrantyStatus",
+          "getSparePartPrice"
+        ],
+        "forbiddenTools": [],
+        "expectedToolSequence": [
+          "getOrder",
+          "getWarrantyStatus",
+          "getSparePartPrice"
+        ],
+        "expectedParameterSource": {
+          "getWarrantyStatus": {
+            "sn": "TOOL_OUTPUT"
+          },
+          "getSparePartPrice": {
+            "productId": "TOOL_OUTPUT"
+          }
+        },
+        "expectedTransportStatus": {
+          "getOrder": "SUCCESS",
+          "getWarrantyStatus": "SUCCESS",
+          "getSparePartPrice": "SUCCESS"
+        },
+        "expectedBusinessStatus": {
+          "getOrder": "OK",
+          "getWarrantyStatus": "OK",
+          "getSparePartPrice": "OK"
+        }
+      }
+    }
+  ]
+}
