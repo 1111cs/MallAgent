@@ -18,9 +18,14 @@ RESET='\033[0m'
 BASE_URL="${BASE_URL:-http://localhost:9090/api/ragent}"
 QUESTION="${QUESTION:-你是谁？你是ChatGPT么？}"
 CONCURRENCY="${CONCURRENCY:-3}"
-TOKEN="${TOKEN:-03c34afe1127412b9c7050f495966b28}"
+TOKEN="${TOKEN:-}"
 CONVERSATION_ID="${CONVERSATION_ID:-}"
 LOG_DIR="${LOG_DIR:-$(pwd)/logs}"
+
+if [[ -z "${TOKEN}" ]]; then
+  echo "TOKEN is required. Export a valid login token before running this script." >&2
+  exit 1
+fi
 
 # ==================== 检测 Python 可用性 ====================
 HAS_PYTHON=false
