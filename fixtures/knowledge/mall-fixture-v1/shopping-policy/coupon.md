@@ -1,6 +1,7 @@
 ---
 kb_id: shopping-policy-kb
 dataset_version: huawei-mall-fixture-v1.0
+fixture_purpose: reproducible_demo
 type: [coupon]
 source_snapshot: 2026-09-15
 content_scope: project_policy

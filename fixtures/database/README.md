@@ -1,10 +1,10 @@
 # Huawei Mall Mock DB：DDL v1.0
 
-本目录实现 [Huawei Mall 业务契约冻结 V1.1](../Huawei%20Mall%20业务契约冻结%20V1.1.md) 的固定数据表与 Fixture。`schema.sql` 只在明确选定的 PostgreSQL 测试数据库中创建 `huawei_mall_mock` schema；不修改 Ragent 现有 `public` 表。Seed 与 Fixture 已作为 Baseline Adapter V1 冻结。
+本目录实现 [Huawei Mall Agent 业务契约](../../docs/BUSINESS_CONTRACT.md) 所需的固定数据表与 Fixture。`schema.sql` 只在明确选定的 PostgreSQL 测试数据库中创建 `huawei_mall_mock` schema，不修改 Ragent 现有 `public` 表。
 
-## 表与已冻结 Tool 的数据来源
+## 表与 Tool 的数据来源
 
-V1.1 规定的十张核心表均已建立。为兑现已冻结的事件数组，增加 `t_logistics_event`、`t_repair_progress_event` 两张允许的事件表。总数为 12 张。物流承运商、运单号、状态和预计送达时间存于 `t_order`，避免额外的物流主表。
+业务契约中的十张核心表均已建立，并增加 `t_logistics_event`、`t_repair_progress_event` 两张事件表，总数为 12 张。物流承运商、运单号、状态和预计送达时间存于 `t_order`，避免额外的物流主表。
 
 | Tool | 主要表 | 确定性派生 |
 |---|---|---|
@@ -29,4 +29,4 @@ psql -v ON_ERROR_STOP=1 -d <test_database> -f schema.sql
 
 `schema.sql` 有事务，任一 DDL 错误都会回滚。它不会删除已有 schema，因此重复执行会因 `CREATE SCHEMA` 冲突而停止。固定 Seed 草案、Case Facts 与清单位于 [`fixtures/`](fixtures/README.md)。在同一个数据库写入 Seed 后执行 `audit.sql` 和 `fixtures/case_fact_audit.sql`；每个违例查询都应返回 0 行。审计脚本不能取代 row count 与 SHA-256 校验，也不能证明 Tool 和 KB 已验收。
 
-2026-09-16，隔离数据库 `ragent_huawei_baseline` 中的 Mock schema、固定 Seed、身份映射、固定时钟、四个 KB、Intent Resource Mapping 与八个 Tool 已完成验收并冻结为 `huawei-mall-fixture-v1.0`。正式快照与校验记录位于 `huawei-mall-kb/freezes/baseline-adapter-v1/`。
+当前数据版本为 `huawei-mall-fixture-v1.0`。修改表结构或 Seed 后，应提升数据版本并重新运行数据审计、工具测试和 Golden Case 回归。

@@ -3,7 +3,7 @@ kb_id: product-kb
 dataset_version: huawei-mall-fixture-v1.0
 category: [phone]
 source_snapshot: 2026-09-15
-content_scope: project_fixture_plus_public_positioning
+content_scope: public_demo_fixture
 ---
 
 # 手机产品知识

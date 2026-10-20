@@ -1,6 +1,7 @@
 ---
 kb_id: product-kb
 dataset_version: huawei-mall-fixture-v1.0
+fixture_purpose: reproducible_demo
 category: [laptop]
 source_snapshot: 2026-09-15
 content_scope: project_fixture
