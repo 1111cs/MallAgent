@@ -3,17 +3,17 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Huawei Mall Golden V0 Baseline Runner</title>
+  <title>MallAgent Golden Case Runner</title>
   <style>
     body{margin:0;background:#f4f7fb;color:#172033;font-family:system-ui,"Microsoft YaHei",sans-serif}main{max-width:1380px;margin:24px auto;padding:0 18px}.card{background:#fff;border:1px solid #dbe4f0;border-radius:16px;padding:18px;margin-bottom:16px;box-shadow:0 8px 24px #0f172a0d}h1{margin:0 0 8px}p{color:#526079}button{border:0;border-radius:9px;padding:9px 14px;background:#2563eb;color:#fff;font-weight:650;cursor:pointer;margin:3px}button.secondary{background:#64748b}button.danger{background:#b91c1c}button:disabled{opacity:.48;cursor:not-allowed}.tokens,.groups{display:flex;gap:8px;flex-wrap:wrap;align-items:center}.pill{padding:6px 10px;border-radius:999px;background:#eef2ff;color:#3730a3}.ok{color:#047857;font-weight:700}.bad{color:#b91c1c;font-weight:700}.muted{color:#64748b}table{width:100%;border-collapse:collapse;font-size:13px}th,td{border-bottom:1px solid #e5e7eb;padding:8px;text-align:left;vertical-align:top}.answer{max-width:430px;white-space:pre-wrap}.status{min-width:95px}.toolbar{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:center}code{background:#eef2f7;padding:2px 5px;border-radius:5px}#progress{font-weight:650}
   </style>
 </head>
 <body><main>
   <section class="card">
-    <h1>Huawei Mall Golden V0 Baseline Runner</h1>
-    <p>按冻结的 20 条原问句运行真实 Agent。每条完成后使用 execution-record 自动执行 Checkpoint C 结构断言；Answer Groundedness 仍按独立任务评分处理。</p>
+    <h1>MallAgent Golden Case Runner</h1>
+    <p>运行 20 条固定业务用例，并使用 execution-record 自动检查路由、工具、参数来源和任务状态。</p>
     <div class="tokens">
-      <strong>登录态：</strong>
+      <strong>评测账号：</strong>
       <button data-capture="U001">保存当前登录为 U001</button><span id="token-U001" class="pill">未保存</span>
       <button data-capture="U002">保存当前登录为 U002</button><span id="token-U002" class="pill">未保存</span>
       <button data-capture="U003">保存当前登录为 U003</button><span id="token-U003" class="pill">未保存</span>
@@ -21,19 +21,19 @@
   </section>
   <section class="card">
     <div class="toolbar"><div class="groups">
-      <button data-group="KB_ONLY">运行 5 KB</button>
-      <button data-group="NORMAL_TOOL">运行 5 Normal Tool</button>
-      <button data-group="MISSING_PARAMETER">运行 4 Missing</button>
-      <button data-group="AMBIGUOUS_ENTITY">运行 3 Ambiguous</button>
-      <button data-group="TOOL_DEPENDENCY">运行 3 Dependency</button>
+      <button data-group="KB_ONLY">运行 5 条知识库用例</button>
+      <button data-group="NORMAL_TOOL">运行 5 条普通工具用例</button>
+      <button data-group="MISSING_PARAMETER">运行 4 条缺参用例</button>
+      <button data-group="AMBIGUOUS_ENTITY">运行 3 条消歧用例</button>
+      <button data-group="TOOL_DEPENDENCY">运行 3 条依赖用例</button>
       <button id="run-all">运行全部未完成</button>
       <button id="stop" class="danger" disabled>停止当前条</button>
     </div><div><span id="progress">等待运行</span> <button id="download" class="secondary">下载当前结果</button><button id="clear" class="secondary">清空结果</button></div></div>
   </section>
-  <section class="card"><table><thead><tr><th>ID</th><th>Principal</th><th>问题</th><th>状态</th><th>Answer</th><th>Trace</th><th>结构断言</th><th>耗时</th></tr></thead><tbody id="rows"></tbody></table></section>
+  <section class="card"><table><thead><tr><th>ID</th><th>用户</th><th>问题</th><th>状态</th><th>回答</th><th>执行轨迹</th><th>结构断言</th><th>耗时</th></tr></thead><tbody id="rows"></tbody></table></section>
 </main><script>
 const TOKEN_IDS={U001:'9000000000000000101',U002:'9000000000000000102',U003:'9000000000000000103'};
-const TOKEN_PREFIX='hm_golden_token_'; const QUERY=new URLSearchParams(location.search); const CASES_URL=QUERY.get('cases')||'/golden-v0-baseline-cases.json'; const ASSERTIONS_URL=QUERY.get('assertions')||'/golden-v0-trace-assertions.json'; const RESULT_KEY='hm_golden_progress_'+CASES_URL;
+const TOKEN_PREFIX='hm_golden_token_'; const QUERY=new URLSearchParams(location.search); const CASES_URL=QUERY.get('cases')||'/agent-golden-cases-v1.json'; const ASSERTIONS_URL=QUERY.get('assertions')||'/agent-golden-assertions-v1.json'; const RESULT_KEY='hm_golden_progress_'+CASES_URL;
 const rows=document.querySelector('#rows'),progress=document.querySelector('#progress'),stopButton=document.querySelector('#stop');
 let suite=null,assertionSuite=null,results=JSON.parse(localStorage.getItem(RESULT_KEY)||'[]'),activeController=null,stopped=false,running=false;
 const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -50,7 +50,7 @@ async function runCase(c,index,total){const token=tokenFor(c.principalId);if(!to
 async function runSelected(cases,rerunCompleted=false){if(running)return;const missing=[...new Set(cases.map(c=>c.principalId).filter(p=>!tokenFor(p)))];if(missing.length){progress.textContent='缺少登录态：'+missing.join(', ');return}running=true;stopped=false;stopButton.disabled=false;document.querySelectorAll('[data-group],[data-case],#run-all').forEach(x=>x.disabled=true);const doneIds=new Set(results.filter(x=>x.status==='COMPLETED').map(x=>x.id));const pending=rerunCompleted?cases:cases.filter(c=>!doneIds.has(c.id));for(let i=0;i<pending.length&&!stopped;i++){const c=pending[i],result=await runCase(c,i+1,pending.length);results=results.filter(x=>x.id!==c.id).concat(result);save()}running=false;stopButton.disabled=true;document.querySelectorAll('[data-group],[data-case],#run-all').forEach(x=>x.disabled=false);progress.textContent=stopped?'已停止，结果已保存':`本组完成；累计 ${results.filter(x=>x.status==='COMPLETED').length}/`}
 document.querySelectorAll('[data-group]').forEach(btn=>btn.onclick=()=>runSelected(suite.cases.filter(c=>c.category===btn.dataset.group),true));
 document.querySelector('#run-all').onclick=()=>runSelected(suite.cases);stopButton.onclick=()=>{stopped=true;activeController?.abort()};
-document.querySelector('#download').onclick=()=>{const report={suite:suite.suite,adapterVersion:suite.adapterVersion,datasetVersion:suite.datasetVersion,asOf:suite.asOf,generatedAt:new Date().toISOString(),resultCount:results.length,results:suite.cases.map(c=>results.find(r=>r.id===c.id)).filter(Boolean)};const blob=new Blob([JSON.stringify(report,null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=`huawei-mall-golden-v0-baseline-${new Date().toISOString().replace(/[:.]/g,'-')}.json`;a.click();URL.revokeObjectURL(a.href)};
+document.querySelector('#download').onclick=()=>{const report={suite:suite.suite,evaluationVersion:suite.evaluationVersion,datasetVersion:suite.datasetVersion,asOf:suite.asOf,generatedAt:new Date().toISOString(),resultCount:results.length,results:suite.cases.map(c=>results.find(r=>r.id===c.id)).filter(Boolean)};const blob=new Blob([JSON.stringify(report,null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=`mall-agent-golden-result-${new Date().toISOString().replace(/[:.]/g,'-')}.json`;a.click();URL.revokeObjectURL(a.href)};
 document.querySelector('#clear').onclick=()=>{if(running)return;results=[];localStorage.removeItem(RESULT_KEY);render();progress.textContent='结果已清空'};
 addEventListener('beforeunload',()=>activeController?.abort());
 Promise.all([fetch(CASES_URL,{cache:'no-store'}).then(r=>r.json()),fetch(ASSERTIONS_URL,{cache:'no-store'}).then(r=>r.json())]).then(([cases,assertions])=>{suite=cases;assertionSuite=assertions;tokenBadges();render()}).catch(e=>progress.textContent='加载 Case/断言失败：'+e.message);

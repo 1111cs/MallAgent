@@ -19,8 +19,8 @@
 先创建本地数据库，例如 `ragent`，再按顺序执行：
 
 ```bash
-psql -U postgres -d ragent -f ragent-bootstrap/src/main/resources/database/schema_pg.sql
-psql -U postgres -d ragent -f ragent-bootstrap/src/main/resources/database/init_data_pg.sql
+psql -U postgres -d ragent -f resources/database/schema_pg.sql
+psql -U postgres -d ragent -f resources/database/init_data_pg.sql
 psql -U postgres -d ragent -f fixtures/database/schema.sql
 psql -U postgres -d ragent -f fixtures/database/fixtures/seed.sql
 ```
@@ -96,7 +96,7 @@ Bootstrap 默认监听：
 http://localhost:9090
 ```
 
-仓库当前的 Vite 开发代理目标是 `http://localhost:19090`。联调前请选择一种方式保持一致：启动 Bootstrap 时设置 `SERVER_PORT=19090`，或把 `frontend/vite.config.ts` 的代理目标改为 `http://localhost:9090`。
+Vite 开发代理默认指向同一地址，无需额外修改端口。
 
 ## 7. 启动前端
 

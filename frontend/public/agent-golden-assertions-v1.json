@@ -1,7 +1,7 @@
 {
-  "suite": "huawei-mall-golden-v0-trace-assertions",
-  "checkpointBStatus": "CHECKPOINT_B_MINIMAL_STRUCTURED_TRACE_PASSED",
-  "assertionVersion": "checkpoint-c-v1",
+  "suite": "mall-agent-golden-assertions-v1",
+  "status": "READY",
+  "assertionVersion": "agent-golden-assertions-v1",
   "cases": [
     {
       "caseId": "KB-01",

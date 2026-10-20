@@ -1,0 +1,43 @@
+{
+  "suite": "mall-agent-golden-cases-v1",
+  "evaluationVersion": "agent-governance-v1",
+  "datasetVersion": "huawei-mall-fixture-v1.0",
+  "asOf": "2026-09-14T10:00:00+08:00",
+  "sourceRunGeneratedAt": "2026-09-21T11:02:08.8650076Z",
+  "sourceCommit": "b5a4d1b",
+  "status": "PASSED",
+  "summary": {
+    "total": 20,
+    "passed": 20,
+    "failed": 0,
+    "originalMechanismPassed": 7
+  },
+  "modelProfile": {
+    "chat": "Qwen/Qwen2.5-7B-Instruct",
+    "embedding": "Qwen/Qwen3-Embedding-8B",
+    "rerank": "qwen3-rerank"
+  },
+  "note": "这是公开仓库使用的精简结果。完整原始 Trace 因体积和运行时标识未纳入当前版本。",
+  "cases": [
+    {"id":"KB-01","category":"KB_ONLY","runStatus":"COMPLETED","evaluationPassed":true,"failureStage":"NONE","durationMs":13052},
+    {"id":"KB-02","category":"KB_ONLY","runStatus":"COMPLETED","evaluationPassed":true,"failureStage":"NONE","durationMs":20860},
+    {"id":"KB-03","category":"KB_ONLY","runStatus":"COMPLETED","evaluationPassed":true,"failureStage":"NONE","durationMs":11832},
+    {"id":"KB-04","category":"KB_ONLY","runStatus":"COMPLETED","evaluationPassed":true,"failureStage":"NONE","durationMs":5647},
+    {"id":"KB-05","category":"KB_ONLY","runStatus":"COMPLETED","evaluationPassed":true,"failureStage":"NONE","durationMs":11639},
+    {"id":"TOOL-01","category":"NORMAL_TOOL","runStatus":"COMPLETED","evaluationPassed":true,"failureStage":"NONE","durationMs":11555},
+    {"id":"TOOL-02","category":"NORMAL_TOOL","runStatus":"COMPLETED","evaluationPassed":true,"failureStage":"NONE","durationMs":8760},
+    {"id":"TOOL-03","category":"NORMAL_TOOL","runStatus":"COMPLETED","evaluationPassed":true,"failureStage":"NONE","durationMs":5854},
+    {"id":"TOOL-04","category":"NORMAL_TOOL","runStatus":"COMPLETED","evaluationPassed":true,"failureStage":"NONE","durationMs":7410},
+    {"id":"TOOL-05","category":"NORMAL_TOOL","runStatus":"COMPLETED","evaluationPassed":true,"failureStage":"NONE","durationMs":9035},
+    {"id":"MISS-01","category":"MISSING_PARAMETER","runStatus":"COMPLETED","evaluationPassed":true,"failureStage":"NONE","durationMs":3140},
+    {"id":"MISS-02","category":"MISSING_PARAMETER","runStatus":"COMPLETED","evaluationPassed":true,"failureStage":"NONE","durationMs":3042},
+    {"id":"MISS-03","category":"MISSING_PARAMETER","runStatus":"COMPLETED","evaluationPassed":true,"failureStage":"NONE","durationMs":3798},
+    {"id":"MISS-04","category":"MISSING_PARAMETER","runStatus":"COMPLETED","evaluationPassed":true,"failureStage":"NONE","durationMs":3350},
+    {"id":"AMB-01","category":"AMBIGUOUS_ENTITY","runStatus":"COMPLETED","evaluationPassed":true,"failureStage":"NONE","durationMs":5283},
+    {"id":"AMB-02","category":"AMBIGUOUS_ENTITY","runStatus":"COMPLETED","evaluationPassed":true,"failureStage":"NONE","durationMs":5068},
+    {"id":"AMB-03","category":"AMBIGUOUS_ENTITY","runStatus":"COMPLETED","evaluationPassed":true,"failureStage":"NONE","durationMs":3144},
+    {"id":"DEP-01","category":"TOOL_DEPENDENCY","runStatus":"COMPLETED","evaluationPassed":true,"failureStage":"NONE","durationMs":9746},
+    {"id":"DEP-02","category":"TOOL_DEPENDENCY","runStatus":"COMPLETED","evaluationPassed":true,"failureStage":"NONE","durationMs":9592},
+    {"id":"DEP-03","category":"TOOL_DEPENDENCY","runStatus":"COMPLETED","evaluationPassed":true,"failureStage":"NONE","durationMs":8633}
+  ]
+}

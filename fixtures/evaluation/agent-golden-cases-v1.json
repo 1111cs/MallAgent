@@ -1,6 +1,6 @@
 {
-  "suite": "huawei-mall-golden-v0-baseline",
-  "adapterVersion": "baseline-adapter-v1",
+  "suite": "mall-agent-golden-cases-v1",
+  "evaluationVersion": "agent-governance-v1",
   "datasetVersion": "huawei-mall-fixture-v1.0",
   "asOf": "2026-09-14T10:00:00+08:00",
   "cases": [

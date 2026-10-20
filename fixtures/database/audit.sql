@@ -1,5 +1,5 @@
--- Read-only Fixture Audit v1.0. Run after the fixed seed is loaded.
--- Every SELECT should return zero rows. Do not treat empty tables as a frozen fixture.
+-- Read-only fixture validation. Run after the fixed seed is loaded.
+-- Every violation query should return zero rows.
 SET search_path = huawei_mall_mock, pg_catalog;
 
 -- Required principals and the Normal Tool price target.

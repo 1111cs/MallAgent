@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Huawei Mall Intent Route Smoke V1</title>
+    <title>MallAgent Intent Routing Runner</title>
     <style>
       body { margin: 0; font-family: system-ui, sans-serif; background: #f8fafc; color: #172033; }
       main { max-width: 1100px; margin: 32px auto; padding: 0 20px; }
@@ -20,8 +20,8 @@
   <body>
     <main>
       <div class="card">
-        <h1>Huawei Mall Intent Route Smoke V1</h1>
-        <p>只检查非 Golden 问法是否进入预期 Intent；不评价 Tool 参数、Evidence 或最终答案。</p>
+        <h1>MallAgent Intent Routing Runner</h1>
+        <p>检查 24 个 Intent 是否进入预期资源；不评价工具参数、检索证据或最终回答。</p>
         <button id="run">运行 24 条路由测试</button><button id="stop" disabled>停止</button><span id="status">等待运行</span>
         <table><thead><tr><th>ID</th><th>问题</th><th>期望 Intent / 资源</th><th>实际 Intent / 资源</th><th>结果</th><th>耗时</th></tr></thead><tbody id="rows"></tbody></table>
       </div>
@@ -46,7 +46,7 @@
         const token = localStorage.getItem('ragent_token');
         if (!token) { status.textContent = '未找到登录 token，请先在主页面登录'; return; }
         stopped = false; runButton.disabled = true; stopButton.disabled = false; rows.innerHTML = '';
-        const suite = await fetch('/intent-route-smoke-v1.json').then(r => r.json());
+        const suite = await fetch('/intent-routing-cases-v1.json').then(r => r.json());
         const results = [];
         for (let i = 0; i < suite.cases.length; i++) {
           if (stopped) break;
@@ -70,7 +70,7 @@
         }
         const report = {suite:suite.suite, generatedAt:new Date().toISOString(), total:results.length, passed:results.filter(x=>x.pass).length, failed:results.filter(x=>!x.pass).length, results};
         const blob = new Blob([JSON.stringify(report, null, 2)], {type:'application/json'});
-        const link = document.createElement('a'); link.href = URL.createObjectURL(blob); link.download = 'huawei-mall-intent-route-smoke-v1-result.json'; link.click(); URL.revokeObjectURL(link.href);
+        const link = document.createElement('a'); link.href = URL.createObjectURL(blob); link.download = 'mall-agent-intent-routing-result.json'; link.click(); URL.revokeObjectURL(link.href);
         status.textContent = stopped ? `已停止：完成 ${report.total}/${suite.cases.length}` : `完成：${report.passed}/${report.total} PASS；结果已下载`;
         runButton.disabled = false; stopButton.disabled = true;
       });

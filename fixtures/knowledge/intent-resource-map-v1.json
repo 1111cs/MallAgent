@@ -1,6 +1,6 @@
 {
-  "status": "FROZEN_BASELINE_ADAPTER_V1",
-  "physicalModel": "Five L1 domain roots, one neutral category per domain, and resource-specific topic leaves. PRODUCT_RECOMMEND has paired KB/MCP leaves.",
+  "status": "MALL_FIXTURE_V1",
+  "physicalModel": "5 个一级业务域，每个域包含中性分类节点和面向资源的叶子 Intent；PRODUCT_RECOMMEND 分为 KB 与 MCP 两条物理路由。",
   "promptTemplate": null,
   "paramPromptTemplate": null,
   "routes": [

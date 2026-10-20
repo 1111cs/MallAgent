@@ -1,6 +1,6 @@
 # MallAgent 发布验证报告
 
-本报告记录公开仓库整理阶段实际执行的验证，目的是区分可离线复现的默认测试、依赖外部基础设施的测试，以及项目历史冻结的 Golden Case 结果。
+本报告区分可离线复现的默认测试、依赖外部基础设施的测试，以及固定环境下的 Golden Case 结果。
 
 ## 本次实际验证
 
@@ -60,11 +60,11 @@ mvn -Pexternal test
 
 ## Golden Case
 
-仓库保留的 20 条 Golden Case 是冻结业务契约、Fixture、时钟与测试身份条件下的历史验收产物：
+仓库中的 20 条 Golden Case 使用固定业务契约、Fixture、时钟与测试身份：
 
 ```text
-Baseline: 7/20 PASS
+原始机制: 7/20 PASS
 MallAgent: 20/20 PASS
 ```
 
-该结果及约束见 [评测说明](EVALUATION.md) 和 [冻结结果](huawei-mall-golden-v0-final-consolidated-2026-09-21.json)，不应理解为对任意模型、任意数据或真实生产环境的准确率承诺。
+该结果及约束见 [评测说明](EVALUATION.md) 和 [精简评测结果](evaluation-result-v1.json)，不应理解为对任意模型、任意数据或真实生产环境的准确率承诺。

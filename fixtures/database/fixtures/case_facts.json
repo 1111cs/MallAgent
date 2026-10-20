@@ -1,5 +1,5 @@
 {
-  "status": "FROZEN_BASELINE_ADAPTER_V1",
+  "status": "MALL_FIXTURE_V1",
   "datasetVersion": "huawei-mall-fixture-v1.0",
   "asOf": "2026-09-14T10:00:00+08:00",
   "timezone": "Asia/Shanghai",

@@ -19,8 +19,7 @@
 
 ## 文件约定
 
-- 本版本仅以 product/、shopping-policy/、after-sales/、support/ 下的 16 份 Markdown 为 KB 正文来源；README.md 与 golden-kb-cases-suggested.json 不参与导入。
-- golden-kb-cases-suggested.json 是补充诊断问题，不能替代项目的 Golden Use Case V0。
+- 本版本仅以 `product/`、`shopping-policy/`、`after-sales/`、`support/` 下的 16 份 Markdown 为知识库正文来源，`README.md` 不参与导入。
 - 不维护静态文件哈希 manifest；导入时应记录实际 Chunk、向量模型和知识库快照版本，保证不同运行使用同一份知识数据。
 
 ## 当前切分口径

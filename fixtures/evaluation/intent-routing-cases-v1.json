@@ -1,6 +1,6 @@
 {
-  "suite": "huawei-mall-intent-route-smoke-v1",
-  "purpose": "Pre-freeze routing smoke test. Questions are not copied from Golden V0 and answer quality is out of scope.",
+  "suite": "mall-agent-intent-routing-cases-v1",
+  "purpose": "验证 24 个物理叶子 Intent 及其资源映射；不评价工具参数、检索证据和最终回答。",
   "cases": [
     {"id":"IR-01","expectedIntent":"PRODUCT_INFO","resource":"KB:product-kb","question":"这款平板的主要能力和适合人群是什么？"},
     {"id":"IR-02","expectedIntent":"PRODUCT_COMPARE","resource":"KB:product-kb","question":"帮我说明两个手机系列定位上有哪些差异。"},

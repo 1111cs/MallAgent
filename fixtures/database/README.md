@@ -1,32 +1,42 @@
-# Huawei Mall Mock DB：DDL v1.0
+# 商城 Mock 数据库
 
-本目录实现 [Huawei Mall Agent 业务契约](../../docs/BUSINESS_CONTRACT.md) 所需的固定数据表与 Fixture。`schema.sql` 只在明确选定的 PostgreSQL 测试数据库中创建 `huawei_mall_mock` schema，不修改 Ragent 现有 `public` 表。
+本目录提供 [商城业务契约](../../docs/BUSINESS_CONTRACT.md) 所需的确定性业务数据。`schema.sql` 在 PostgreSQL 中创建独立的 `huawei_mall_mock` Schema，不修改项目原有的 `public` 表。
 
-## 表与 Tool 的数据来源
+## 文件说明
 
-业务契约中的十张核心表均已建立，并增加 `t_logistics_event`、`t_repair_progress_event` 两张事件表，总数为 12 张。物流承运商、运单号、状态和预计送达时间存于 `t_order`，避免额外的物流主表。
+| 文件 | 用途 |
+| --- | --- |
+| `schema.sql` | 创建 12 张商城 Mock 表和约束 |
+| `fixtures/seed.sql` | 写入固定演示数据 |
+| `fixtures/reset_mock_seed.sql` | 仅清理 12 张 Mock 表，便于重新导入 |
+| `audit.sql` | 校验表级约束和数据一致性 |
+| `fixtures/case_facts.json` | 记录 Golden Case 依赖的业务事实 |
+| `fixtures/case_fact_audit.sql` | 校验 Golden Case 的数据库前提 |
 
-| Tool | 主要表 | 确定性派生 |
-|---|---|---|
-| searchProducts | `t_product` | 固定 `spec_json` 筛选映射；匹配约束由实际命中筛选项组成 |
-| getProductAvailability | `t_product`, `t_inventory` | 库存状态由 `stock` 计算；`CN_DEFAULT` 读取固定记录 |
-| getOrder | `t_order`, `t_order_item`, `t_product` | 从可信身份限定 `user_id`；`LAST_MONTH` 使用固定半开区间 |
-| getLogistics | `t_order`, `t_logistics_event` | 事件按 `event_time` 排序；无运行时虚构事件 |
-| getCouponEligibility | `t_coupon`, `t_user_coupon`, `t_order`, `t_order_item`, `t_product` | 固定时钟、门槛、品类和已使用状态决定 `eligible/reasonCode` |
-| getWarrantyStatus | `t_device`, `t_product` | 固定时钟与保修日期决定状态 |
-| getSparePartPrice | `t_product`, `t_spare_part_price` | `estimatedTotal = part_price + labor_fee`；在固定时钟前选择最新生效版本 |
-| getRepairProgress | `t_repair_order`, `t_device`, `t_product`, `t_repair_progress_event` | 历史事件按 `event_time` 排序；联系号码由 Adapter 脱敏 |
+## Tool 与数据来源
 
-`t_user` 是 Mock 业务用户，不替换 Ragent 的认证用户表。Adapter 必须从可信认证上下文取 `principal_id`，再以该 ID 访问 Mock 数据；模型参数不能决定归属。输出 `currency=CNY`、`asOf`、`timezone`、`datasetVersion` 由固定配置给出。模型和商品名称的快照保留于订单项，历史订单不受商品当前名称影响。
+| Tool | 主要表 |
+| --- | --- |
+| `searchProducts` | `t_product` |
+| `getProductAvailability` | `t_product`、`t_inventory` |
+| `getOrder` | `t_order`、`t_order_item`、`t_product` |
+| `getLogistics` | `t_order`、`t_logistics_event` |
+| `getCouponEligibility` | `t_coupon`、`t_user_coupon`、订单与商品表 |
+| `getWarrantyStatus` | `t_device`、`t_product` |
+| `getSparePartPrice` | `t_product`、`t_spare_part_price` |
+| `getRepairProgress` | `t_repair_order`、`t_repair_progress_event`、设备与商品表 |
 
-## 执行与验证
+所有私有查询都必须使用服务端注入的用户身份，模型提供的 `userId` 或 `principalId` 不参与数据归属判断。
 
-在已隔离的测试数据库、且确认没有同名 Mock schema 时执行：
+## 初始化与校验
 
-```powershell
-psql -v ON_ERROR_STOP=1 -d <test_database> -f schema.sql
+在仓库根目录执行：
+
+```bash
+psql -v ON_ERROR_STOP=1 -U postgres -d ragent -f fixtures/database/schema.sql
+psql -v ON_ERROR_STOP=1 -U postgres -d ragent -f fixtures/database/fixtures/seed.sql
+psql -v ON_ERROR_STOP=1 -U postgres -d ragent -f fixtures/database/audit.sql
+psql -v ON_ERROR_STOP=1 -U postgres -d ragent -f fixtures/database/fixtures/case_fact_audit.sql
 ```
 
-`schema.sql` 有事务，任一 DDL 错误都会回滚。它不会删除已有 schema，因此重复执行会因 `CREATE SCHEMA` 冲突而停止。固定 Seed 草案、Case Facts 与清单位于 [`fixtures/`](fixtures/README.md)。在同一个数据库写入 Seed 后执行 `audit.sql` 和 `fixtures/case_fact_audit.sql`；每个违例查询都应返回 0 行。审计脚本不能取代 row count 与 SHA-256 校验，也不能证明 Tool 和 KB 已验收。
-
-当前数据版本为 `huawei-mall-fixture-v1.0`。修改表结构或 Seed 后，应提升数据版本并重新运行数据审计、工具测试和 Golden Case 回归。
+两个校验脚本中的违例查询都应返回 0 行。当前数据版本为 `huawei-mall-fixture-v1.0`；修改表结构或 Seed 后，应提升版本并重新运行工具测试与 Golden Case。
